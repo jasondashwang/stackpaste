@@ -1,0 +1,14 @@
+.idea
+node_modules
+npm-debug.log
+.DS_Store
+coverage
+public/bundle.js
+public/bundle.js.map
+.elasticbeanstalk
+.env.local
+.env.dev
+.env
+logs
+*.sh
+firebase
