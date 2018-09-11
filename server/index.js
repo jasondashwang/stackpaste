@@ -2,18 +2,18 @@
 const chalk = require('chalk');
 const http = require('http');
 // const https = require('https');
-// const appHTTPS = require('./app').App;
-const appHTTP = require('./app').httpApp;
+// const httpsApp = require('./app').App;
+const httpApp = require('./app').redirectApp;
 
 
 const startServers = () => {
   const httpPORT = 8000;
   // const httpsPORT = 8080;
-  http.createServer(appHTTP).listen(httpPORT, () => {
+  http.createServer(httpApp).listen(httpPORT, () => {
     console.log(chalk.blue('http server started on port', chalk.magenta(httpPORT)));
   });
 
-  // https.createServer(appHTTPS).listen(httpsPORT, () => {
+  // https.createServer(httpsApp).listen(httpsPORT, () => {
   //   console.log(chalk.blue('https server started on port', chalk.magenta(httpsPORT)));
   // });
 };
