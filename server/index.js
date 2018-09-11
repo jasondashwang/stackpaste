@@ -4,7 +4,7 @@ const http = require('http');
 // const https = require('https');
 // const httpsApp = require('./app').App;
 const httpApp = require('./app').redirectApp;
-
+const startDb = require('./db');
 
 const startServers = () => {
   const httpPORT = 8000;
@@ -17,5 +17,6 @@ const startServers = () => {
   //   console.log(chalk.blue('https server started on port', chalk.magenta(httpsPORT)));
   // });
 };
-
-startServers();
+startDb.then(startServers).catch((err) => {
+  console.log(chalk.red(err.stack));
+});
