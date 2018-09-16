@@ -17,6 +17,7 @@ const startServers = () => {
   //   console.log(chalk.blue('https server started on port', chalk.magenta(httpsPORT)));
   // });
 };
+
 startDb.then(startServers).catch((err) => {
   console.log(chalk.red(err.stack));
 });

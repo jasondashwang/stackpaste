@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "f-start": "webpack --mode development",
-    "build": "webpack --mode production",
+    "build": "webpack",
     "start": "node ./server/index.js"
   },
   "dependencies": {
