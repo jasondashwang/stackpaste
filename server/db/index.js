@@ -5,7 +5,7 @@ const chalk = require('chalk');
 
 mongoose.Promise = require('bluebird');
 
-const db = mongoose.createConnection(`mongodb://localhost:27017/stackpaste`);
+const db = mongoose.createConnection(`mongodb://localhost:27017/stackpaste`, { useNewUrlParser: true });
 
 db.on('error', (err) => {
   if (err) throw err;

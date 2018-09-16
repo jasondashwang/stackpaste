@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode development",
     "start": "node ./server/index.js"
   },
   "dependencies": {
