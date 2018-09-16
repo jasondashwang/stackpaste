@@ -5,14 +5,23 @@ const chalk = require('chalk');
 
 mongoose.Promise = require('bluebird');
 
-const db = mongoose.createConnection(`mongodb://localhost:27017/stackpaste`, { useNewUrlParser: true });
+const localURI = 'localhost:27017/stackpaste';
 
-db.on('error', (err) => {
-  if (err) throw err;
-});
+const connection = mongoose.createConnection(`mongodb://${localURI}`, { useNewUrlParser: true });
 
-db.once('open', () => {
-  console.log(chalk.green('MongoDB connected successfully'));
-});
+connection
+  .then((db) => {
+    console.log(`Successfully connected to ${localURI}`);
+    return db;
+  })
+  .catch((err) => {
+    if (err.message.code === 'ETIMEDOUT') {
+      console.log(chalk.red('Attempting to re-establish database connection.'));
+      mongoose.connect(`mongodb://${localURI}`);
+    } else {
+      console.log(chalk.red('Error while attempting to connect to database:'));
+      console.error(err);
+    }
+  });
 
-module.exports = db;
+module.exports = connection;

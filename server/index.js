@@ -4,20 +4,18 @@ const http = require('http');
 // const https = require('https');
 // const httpsApp = require('./app').App;
 const httpApp = require('./app').redirectApp;
-const startDb = require('./db');
 
-const startServers = () => {
-  const httpPORT = 8000;
-  // const httpsPORT = 8080;
-  http.createServer(httpApp).listen(httpPORT, () => {
-    console.log(chalk.blue(`Server started at http://localhost:${httpPORT}`));
-  });
+// Start the Database
+require('./db');
 
-  // https.createServer(httpsApp).listen(httpsPORT, () => {
-  //   console.log(chalk.blue('https server started on port', chalk.magenta(httpsPORT)));
-  // });
-};
+const httpPORT = 8000;
+// const httpsPORT = 8080;
 
-startDb.then(startServers).catch((err) => {
-  console.log(chalk.red(err.stack));
+
+http.createServer(httpApp).listen(httpPORT, () => {
+  console.log(chalk.blue(`Server started at http://localhost:${httpPORT}`));
 });
+
+// https.createServer(httpsApp).listen(httpsPORT, () => {
+//   console.log(chalk.blue('https server started on port', chalk.magenta(httpsPORT)));
+// });
