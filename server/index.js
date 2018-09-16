@@ -10,7 +10,7 @@ const startServers = () => {
   const httpPORT = 8000;
   // const httpsPORT = 8080;
   http.createServer(httpApp).listen(httpPORT, () => {
-    console.log(chalk.blue('http server started on port', chalk.magenta(httpPORT)));
+    console.log(chalk.blue(`Server started at http://localhost:${httpPORT}`));
   });
 
   // https.createServer(httpsApp).listen(httpsPORT, () => {

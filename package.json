@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
+    "dev-start": "webpack -w & nodemon ./server/index.js",
     "start": "node ./server/index.js"
   },
   "dependencies": {
