@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-preset-react": "^6.24.1",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",

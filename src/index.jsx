@@ -12,3 +12,5 @@ ReactDOM.render(
     <Routes />
   </Provider>, wrapper,
 );
+
+module.hot.accept();

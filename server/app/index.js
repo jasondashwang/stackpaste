@@ -1,7 +1,6 @@
 
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser');
 
 const httpsApp = express();
 const httpApp = express();
@@ -26,7 +25,6 @@ in the meantime I doubled the routes so we wouldnt have to rewrite them with htt
 
 require('./configure')(httpApp);
 require('./configure')(httpsApp);
-
 // API routes
 httpsApp.use('/api', require('./api'));
 httpApp.use('/api', require('./api'));
