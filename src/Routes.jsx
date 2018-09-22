@@ -11,8 +11,8 @@ class Routes extends React.Component {
           <Route exact path="/" component={AppContainer} />
         </div>
       </Router>
-    )
+    );
   }
-};
+}
 
 export default Routes;
