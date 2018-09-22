@@ -2,12 +2,12 @@ import React from 'react';
 
 import { withStyles } from 'material-ui/styles';
 
-const styles = theme => {
+const styles = () => ({
   navbar: {
-    position: 'absolulte',
-    backgroundColor: '#2196F3'
-  }
-}
+    position: 'absolute',
+    backgroundColor: 'red',
+  },
+});
 
 const NavbarComponent = (props) => {
   return (
