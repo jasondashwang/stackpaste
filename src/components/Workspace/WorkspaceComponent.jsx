@@ -1,5 +1,5 @@
 import React from 'react';
-import DevStation from './DevStationContainer';
+import DevStation from '../DevStation/DevStationContainer';
 
 const WorkspaceComponent = (props) => {
   return (

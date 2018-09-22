@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SideMenuContainer from './SideMenuContainer';
-import NavbarContainer from './NavbarContainer';
-import WorkspaceContainer from './WorkspaceContainer';
+import SideMenuContainer from '../SideMenu/SideMenuContainer';
+import NavbarContainer from '../Navbar/NavbarContainer';
+import WorkspaceContainer from '../Workspace/WorkspaceContainer';
 
 const AppComponent = (props) => {
   return (

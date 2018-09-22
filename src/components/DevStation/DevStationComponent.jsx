@@ -1,11 +1,13 @@
 import React from 'react';
-import terminal from './TerminalContainer.js';
+import Terminal from '../Terminal/TerminalContainer';
 
 const DevStationComponent = (props) => {
   return (
     <div>
       <div>Dev Station</div>
-      <terminal/>
+      <div>
+        <Terminal />
+      </div>
     </div>
 
   );
