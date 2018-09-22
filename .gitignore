@@ -5,7 +5,7 @@ npm-debug.log
 coverage
 public/bundle.js
 public/bundle.js.map
-dist/*
+dist/
 .elasticbeanstalk
 .env.local
 .env.dev
