@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const shortid = require('shortid');
 
 const { Schema } = mongoose;
 
@@ -9,7 +10,6 @@ const PasteSchema = new Schema({
     required: true,
     trim: true,
     lowercase: true,
-    default: 'Untitled',
   },
   description: {
     type: String,
@@ -17,18 +17,18 @@ const PasteSchema = new Schema({
     required: true,
     trim: true,
     lowercase: true,
-    default: '',
   },
   short: {
     type: String,
     unique: true,
     required: true,
     trim: true,
+    default: shortid.generate,
   },
-  file: {
+  files: [{
     type: Schema.Types.ObjectId,
     ref: 'File',
-  },
+  }],
 
 });
 

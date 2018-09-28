@@ -4,5 +4,8 @@ module.exports = {
     "plugins": ["react"],
     "env": {
         "browser": true
+    },
+    "rules": {
+        "no-underscore-dangle": [2, { "allow": ["_id"] }]
     }
 };

@@ -7,7 +7,10 @@ mongoose.Promise = require('bluebird');
 
 const localURI = 'localhost:27017/stackpaste';
 
-const connection = mongoose.createConnection(`mongodb://${localURI}`, { useNewUrlParser: true });
+const connection = mongoose.connect(`mongodb://${localURI}`, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+});
 
 connection
   .then((db) => {

@@ -9,7 +9,6 @@ const FileSchema = new Schema({
     required: true,
     trim: true,
     lowercase: true,
-    default: 'Untitled',
   },
   body: {
     type: String,
@@ -17,7 +16,6 @@ const FileSchema = new Schema({
     required: true,
     trim: true,
     lowercase: true,
-    default: '',
   },
 
 });
