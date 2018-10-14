@@ -18,4 +18,33 @@ router.post('/', (req, res, next) => {
     });
 });
 
+  /*
+    Request format
+    {
+      currentPassword,
+      userId,
+      updatedPassword
+    }
+  */
+  router.put('/password', (req, res, next) => {
+    User.findById(req.body.userId)
+    .then((dbUser) => {
+      // Check if request's current password is valid
+      if (dbUser.validPassword(req.body.currentPassword)) {
+        dbUser.password = dbUser.hash(req.body.updatedPassword);
+        return dbUser.save();
+      } else {
+        const err = new Error('Invalid Password');
+        err.status = 401;
+        throw err;
+      }
+    })
+    .then((updatedDbUser) => {
+      res.status(201).json(updatedDbUser);
+    })
+    .catch((err) => {
+      next(err);
+    });
+  })
+
 module.exports = router;

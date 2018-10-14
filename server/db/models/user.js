@@ -17,6 +17,14 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.methods.hash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+UserSchema.methods.hash = function hash(password) {
+  const salt = bcrypt.genSaltSync(8);
+  const hashedPass = bcrypt.hashSync(password, salt, null);
+  return hashedPass;
+};
+
+UserSchema.methods.validPassword = function validPassword(password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = mongoose.model('User', UserSchema);
