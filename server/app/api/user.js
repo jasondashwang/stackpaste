@@ -5,8 +5,9 @@ router.post('/', (req, res, next) => {
   // will require more auth
   const newUser = new User({
     username: req.body.username,
-    password: req.body.password,
   });
+
+  newUser.password = newUser.hash(req.body.password);
 
   newUser.save()
     .then((dbUser) => {
