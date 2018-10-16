@@ -1,19 +1,22 @@
 import { connect } from 'react-redux';
 import SidebarComponent from './SidebarComponent';
 
-import { saveMetaThunk } from './ducks/actions';
+import { updateTitleActionCreator, updateDescriptionActionCreator } from '../App/ducks/actions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ title, description }) => {
   return {
-    title: state.title,
-    description: state.description,
+    title,
+    description,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    saveMeta: (title, description) => {
-      dispatch(saveMetaThunk(title, description));
+    handleTitleChange: (evt) => {
+      dispatch(updateTitleActionCreator(evt.target.value));
+    },
+    handleDescriptionChange: (evt) => {
+      dispatch(updateDescriptionActionCreator(evt.target.value));
     },
   };
 };
