@@ -4,17 +4,22 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
+  button: {
+    margin: theme.spacing.unit,
+    color: '#ffffff',
+  },
 });
 
 
 class NavbarComponent extends React.Component {
-  constructor(props) {
-    super(props);
+  save = () => {
+    this.props.createPaste();
   }
 
   render() {
@@ -25,6 +30,9 @@ class NavbarComponent extends React.Component {
           <Typography variant="title" color="inherit" noWrap>
             Stackpaste
           </Typography>
+          <Button color="primary" className={classes.button} onClick={this.save}>
+            Save
+          </Button>
         </Toolbar>
       </AppBar>
     );
@@ -33,6 +41,7 @@ class NavbarComponent extends React.Component {
 
 NavbarComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  createPaste: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(NavbarComponent);

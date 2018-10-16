@@ -10,6 +10,7 @@ const PasteSchema = new Schema({
     required: true,
     trim: true,
     lowercase: true,
+    default: '',
   },
   description: {
     type: String,
@@ -17,6 +18,7 @@ const PasteSchema = new Schema({
     required: true,
     trim: true,
     lowercase: true,
+    default: '',
   },
   short: {
     type: String,

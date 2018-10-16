@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
 /*
 *
 *     IMPORTS FOR THE PLACEHOLDERS
@@ -27,57 +24,12 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
-  iconSmall: {
-    fontSize: 20,
-  },
 });
 
 
 class SidebarComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: 'Untitled',
-      description: '',
-    };
-
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.saveSideBar = this.saveSideBar.bind(this);
-  }
-
-  handleTitleChange(evt) {
-    const newTitle = evt.target.value;
-
-    this.setState({
-      title: newTitle,
-    });
-  }
-
-  handleDescriptionChange(evt) {
-    const newDescription = evt.target.value;
-
-    this.setState({
-      description: newDescription,
-    });
-  }
-
-  saveSideBar() {
-    this.props.saveMeta(this.state.title, this.state.description);
-  }
-
   render() {
-    const { classes } = this.props;
-    const { title, description } = this.state;
+    const { classes, handleTitleChange, handleDescriptionChange, title, description } = this.props;
 
     return (
       <Drawer
@@ -94,7 +46,7 @@ class SidebarComponent extends React.Component {
               label="Title"
               className={classes.textField}
               value={title}
-              onChange={this.handleTitleChange}
+              onChange={handleTitleChange}
               margin="normal"
             />
           </ListItem>
@@ -106,15 +58,11 @@ class SidebarComponent extends React.Component {
               multiline
               className={classes.textField}
               value={description}
-              onChange={this.handleDescriptionChange}
+              onChange={handleDescriptionChange}
               margin="normal"
               rows={4}
             />
           </ListItem>
-          <Button variant="contained" size="small" className={classes.button} onClick={this.saveSideBar}>
-            <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
-            Save
-          </Button>
         </List>
       </Drawer>
     );
@@ -123,7 +71,8 @@ class SidebarComponent extends React.Component {
 
 SidebarComponent.propTypes = {
   classes: PropTypes.object.isRequired,
-  saveMeta: PropTypes.func.isRequired,
+  handleDescriptionChange: PropTypes.func.isRequired,
+  handleTitleChange: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(SidebarComponent);
