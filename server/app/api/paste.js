@@ -36,4 +36,16 @@ router.post('/', (req, res, next) => {
     });
 });
 
+/*
+  Request has
+  {
+    title,
+    description,
+    pasteId,
+  }
+*/
+router.put('/meta', (req, res, next) => {
+  res.status(201).end();
+});
+
 module.exports = router;

@@ -2,11 +2,13 @@ import { connect } from 'react-redux';
 import NavbarComponent from './NavbarComponent';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+  };
 };
 
 const NavbarContainer = connect(mapStateToProps, mapDispatchToProps)(NavbarComponent);
