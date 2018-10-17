@@ -9,6 +9,7 @@ import history from '../../history';
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    height: '100vh',
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -18,21 +19,22 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    minWidth: 0, // So the Typography noWrap works
   },
   toolbar: theme.mixins.toolbar,
 });
 
 class AppComponent extends React.Component {
 
-  componentDidMount () {
-    this.props.getPaste();
-  }
+
 
   componentWillMount() {
     this.unlisten = history.listen((location, action) => {
       this.props.getPaste();
     });
+  }
+
+  componentDidMount() {
+    this.props.getPaste();
   }
 
   componentWillUnmount() {
@@ -43,7 +45,7 @@ class AppComponent extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className="appFrame">
+      <div className={classes.root}>
         <Navbar />
         <Sidebar />
         <main className={classes.content}>
