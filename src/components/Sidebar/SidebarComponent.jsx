@@ -5,11 +5,6 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
-/*
-*
-*     IMPORTS FOR THE PLACEHOLDERS
-*
-*/
 
 const drawerWidth = 240;
 
