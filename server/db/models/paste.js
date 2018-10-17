@@ -6,16 +6,12 @@ const { Schema } = mongoose;
 const PasteSchema = new Schema({
   title: {
     type: String,
-    unique: true,
-    required: true,
     trim: true,
     lowercase: true,
     default: '',
   },
   description: {
     type: String,
-    unique: true,
-    required: true,
     trim: true,
     lowercase: true,
     default: '',

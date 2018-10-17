@@ -3,10 +3,10 @@ import SidebarComponent from './SidebarComponent';
 
 import { updateTitleActionCreator, updateDescriptionActionCreator } from '../App/ducks/actions';
 
-const mapStateToProps = ({ title, description }) => {
+const mapStateToProps = (state) => {
   return {
-    title,
-    description,
+    title: state.app.title,
+    description: state.app.description,
   };
 };
 

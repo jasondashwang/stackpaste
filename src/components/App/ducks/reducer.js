@@ -5,10 +5,11 @@ import {
 } from './actions';
 
 function AppReducer(state = { title: '', short: '', description: '' }, action) {
-  const { short, title, description } = action;
 
   switch (action.type) {
     case RECEIVE_PASTE: {
+      const { short, title, description } = action.paste;
+
       return {
         ...state,
         short,
@@ -18,6 +19,7 @@ function AppReducer(state = { title: '', short: '', description: '' }, action) {
     }
 
     case UPDATE_TITLE: {
+      const { title } = action;
       return {
         ...state,
         title,
@@ -25,6 +27,7 @@ function AppReducer(state = { title: '', short: '', description: '' }, action) {
     }
 
     case UPDATE_DESCRIPTION: {
+      const { description } = action;
       return {
         ...state,
         description,

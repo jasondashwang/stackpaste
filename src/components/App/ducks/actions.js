@@ -1,13 +1,14 @@
 import axios from 'axios';
+import history from '../../../history';
 
 export const RECEIVE_PASTE = 'RECEIVE_PASTE';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 
-export const receivePasteActionCreator = (short) => {
+export const receivePasteActionCreator = (paste) => {
   return {
     type: RECEIVE_PASTE,
-    short,
+    paste,
   };
 };
 
@@ -25,6 +26,19 @@ export const updateDescriptionActionCreator = (description) => {
   };
 };
 
+export const getPasteThunk = (short) => {
+  return (dispatch) => {
+    axios.get(`/api/pastes/${short}`)
+      .then(res => res.data)
+      .then((paste) => {
+        dispatch(receivePasteActionCreator(paste));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
+
 
 export const createPasteThunk = () => {
   return (dispatch, getState) => {
@@ -38,8 +52,8 @@ export const createPasteThunk = () => {
     })
       .then(res => res.data)
       .then((createdPaste) => {
-        console.log('Successfully created a Paste');
-        dispatch(receivePasteActionCreator(createdPaste.short));
+        dispatch(receivePasteActionCreator(createdPaste));
+        history.push(`/${createdPaste.short}`);
       })
       .catch((err) => {
         console.error(err);

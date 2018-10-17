@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
 import Navbar from '../Navbar/NavbarContainer';
 import Workspace from '../Workspace/WorkspaceContainer';
 import Sidebar from '../Sidebar/SidebarContainer';
+import history from '../../history';
 
 const styles = theme => ({
   root: {
@@ -23,24 +23,41 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-const AppComponent = (props) => {
+class AppComponent extends React.Component {
 
-  const { classes } = props;
+  componentDidMount () {
+    this.props.getPaste();
+  }
 
-  return (
-    <div className="appFrame">
-      <Navbar />
-      <Sidebar />
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Workspace />
-      </main>
-    </div>
-  );
+  componentWillMount() {
+    this.unlisten = history.listen((location, action) => {
+      this.props.getPaste();
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlisten();
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div className="appFrame">
+        <Navbar />
+        <Sidebar />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Workspace />
+        </main>
+      </div>
+    );
+  }
 };
 
 AppComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 
