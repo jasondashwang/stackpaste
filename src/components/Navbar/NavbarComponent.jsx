@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   appBar: {
@@ -13,6 +14,10 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
     color: '#ffffff',
+  },
+  titleLink: {
+    color: '#ffffff',
+    textDecoration: 'none',
   },
 });
 
@@ -27,8 +32,8 @@ class NavbarComponent extends React.Component {
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="title" color="inherit" noWrap>
-            Stackpaste
+          <Typography variant="headline" color="inherit" noWrap>
+            <Link to="/" className={classes.titleLink}>stackpaste</Link>
           </Typography>
           <Button color="primary" className={classes.button} onClick={this.save}>
             Save
