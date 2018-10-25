@@ -4,15 +4,14 @@ import AppComponent from './AppComponent';
 import { getPasteThunk } from './ducks/actions';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getPaste: () => {
-      if (!ownProps.first) {
-        dispatch(getPasteThunk(ownProps.match.url.slice(1)));
-      }
+      dispatch(getPasteThunk(ownProps.match.params.short, ownProps.match.params.version));
     },
   };
 };

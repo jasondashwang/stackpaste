@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Navbar from '../Navbar/NavbarContainer';
 import Workspace from '../Workspace/WorkspaceContainer';
 import Sidebar from '../Sidebar/SidebarContainer';
-import history from '../../history';
 
 const styles = theme => ({
   root: {
@@ -24,21 +23,8 @@ const styles = theme => ({
 });
 
 class AppComponent extends React.Component {
-
-
-
-  componentWillMount() {
-    this.unlisten = history.listen((location, action) => {
-      this.props.getPaste();
-    });
-  }
-
   componentDidMount() {
     this.props.getPaste();
-  }
-
-  componentWillUnmount() {
-    this.unlisten();
   }
 
   render() {
@@ -59,7 +45,7 @@ class AppComponent extends React.Component {
 
 AppComponent.propTypes = {
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  getPaste: PropTypes.func.isRequired,
 };
 
 

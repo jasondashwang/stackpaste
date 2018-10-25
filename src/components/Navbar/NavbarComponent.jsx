@@ -27,17 +27,33 @@ class NavbarComponent extends React.Component {
     this.props.createPaste();
   }
 
+  update = () => {
+    this.props.createVersion();
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, short } = this.props;
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
           <Typography variant="headline" color="inherit" noWrap>
             <Link to="/" className={classes.titleLink}>stackpaste</Link>
           </Typography>
-          <Button color="primary" className={classes.button} onClick={this.save}>
-            Save
-          </Button>
+          {
+            short ?
+              (
+                <Button color="primary" className={classes.button} onClick={this.update}>
+                  Update
+                </Button>
+              )
+              :
+              (
+                <Button color="primary" className={classes.button} onClick={this.save}>
+                  Save
+                </Button>
+              )
+          }
+
         </Toolbar>
       </AppBar>
     );
@@ -47,6 +63,8 @@ class NavbarComponent extends React.Component {
 NavbarComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   createPaste: PropTypes.func.isRequired,
+  createVersion: PropTypes.func.isRequired,
+  short: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(NavbarComponent);

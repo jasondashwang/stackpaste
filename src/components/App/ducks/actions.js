@@ -26,16 +26,18 @@ export const updateDescriptionActionCreator = (description) => {
   };
 };
 
-export const getPasteThunk = (short) => {
+export const getPasteThunk = (short, version = '') => {
   return (dispatch) => {
-    axios.get(`/api/pastes/${short}`)
-      .then(res => res.data)
-      .then((paste) => {
-        dispatch(receivePasteActionCreator(paste));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (short || version) {
+      axios.get(`/api/pastes/${short}/${version}`)
+        .then(res => res.data)
+        .then((paste) => {
+          dispatch(receivePasteActionCreator(paste));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   };
 };
 
@@ -54,6 +56,29 @@ export const createPasteThunk = () => {
       .then((createdPaste) => {
         dispatch(receivePasteActionCreator(createdPaste));
         history.push(`/${createdPaste.short}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+};
+
+export const createVersionThunk = () => {
+  return (dispatch, getState) => {
+
+    const { app } = getState();
+    const { title, description, short } = app;
+
+    axios.post(`/api/pastes/${short}`, {
+      title,
+      description,
+      short,
+    })
+      .then(res => res.data)
+      .then((createdPaste) => {
+        console.log(createdPaste);
+        dispatch(receivePasteActionCreator(createdPaste));
+        history.push(`/${createdPaste.short}/${createdPaste.version}`);
       })
       .catch((err) => {
         console.error(err);

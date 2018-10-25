@@ -18,7 +18,6 @@ const PasteSchema = new Schema({
   },
   short: {
     type: String,
-    unique: true,
     required: true,
     trim: true,
     default: shortid.generate,
@@ -27,7 +26,12 @@ const PasteSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'File',
   }],
-
+  versions: [{
+    type: Schema.Types.ObjectId,
+  }],
+  version: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('Paste', PasteSchema);

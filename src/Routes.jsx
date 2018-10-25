@@ -9,8 +9,9 @@ class Routes extends React.Component {
     return (
       <Router history={history}>
         <Switch>
+          <Route exact path="/" component={AppContainer} />
           <Route exact path="/:short" component={AppContainer} />
-          <Route exact path="/" component={(props) => <AppContainer {...props} first={true} />} />
+          <Route exact path="/:short/:version" component={AppContainer} />
         </Switch>
       </Router>
     );
