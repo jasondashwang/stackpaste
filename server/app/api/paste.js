@@ -66,6 +66,7 @@ router.post('/', (req, res, next) => {
   newPaste.save()
     .then((dbPaste) => {
       createdPaste = dbPaste;
+      //  uncomment when ready to use (also debug possibly)
 //      return Promise.all(newFiles.map(file => file.save()));
 //    })
 //   .then((dbFiles) => {

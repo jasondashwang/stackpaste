@@ -6,8 +6,14 @@ import MonacoEditor from 'react-monaco-editor';
 
 const styles = theme => ({
   wrapper: {
-    height: '1000px',
-    width: '1000px',
+    height: '100vh',
+    width: '50vw',
+  },
+  editor: {
+    height: '70vh',
+  },
+  terminal: {
+    height: '30vh',
   },
 });
 
@@ -17,12 +23,17 @@ class DevStationComponent extends React.Component {
 
     return (
       <div className={classes.wrapper}>
-        <MonacoEditor />
+        <div className={classes.editor}>
+          <MonacoEditor />
+        </div>
+        <div className={classes.terminal}>
+          <Terminal />
+        </div>
       </div>
 
     );
   }
-};
+}
 
 DevStationComponent.propTypes = {
   classes: PropTypes.object.isRequired,
