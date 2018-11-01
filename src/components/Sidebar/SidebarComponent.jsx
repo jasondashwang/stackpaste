@@ -9,8 +9,11 @@ import TextField from '@material-ui/core/TextField';
 const drawerWidth = 240;
 
 const styles = theme => ({
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
   drawerPaper: {
-    position: 'relative',
     width: drawerWidth,
   },
 
@@ -28,6 +31,7 @@ class SidebarComponent extends React.Component {
 
     return (
       <Drawer
+        className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,

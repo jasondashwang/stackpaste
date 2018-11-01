@@ -5,8 +5,8 @@ import MonacoEditor from 'react-monaco-editor';
 
 const styles = theme => ({
   wrapper: {
-    height: '100vh',
-    width: '50vw',
+    height: '40%',
+    width: '100%',
   },
 });
 
@@ -17,7 +17,11 @@ class TerminalComponent extends React.Component {
 
     return (
       <div className={classes.wrapper}>
-        <MonacoEditor />
+        <MonacoEditor
+          options={{
+            automaticLayout: true,
+          }}
+        />
       </div>
     );
   }

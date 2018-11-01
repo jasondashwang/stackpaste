@@ -1,13 +1,30 @@
 import React from 'react';
-import DevStation from '../DevStation/DevStationContainer';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import CodeEditor from '../CodeEditor/CodeEditorContainer';
+import Terminal from '../Terminal/TerminalContainer';
+
+const styles = theme => ({
+  main: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+  },
+  toolbar: theme.mixins.toolbar,
+});
 
 const WorkspaceComponent = (props) => {
+  const { classes } = props;
   return (
-    <div>
-      <DevStation />
-      <DevStation />
-    </div>
+    <main className={classes.main}>
+      <div className={classes.toolbar} />
+      <CodeEditor />
+      <Terminal />
+    </main>
   );
 };
 
-export default WorkspaceComponent;
+WorkspaceComponent.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(WorkspaceComponent);

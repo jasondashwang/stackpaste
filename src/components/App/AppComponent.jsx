@@ -7,19 +7,11 @@ import Sidebar from '../Sidebar/SidebarContainer';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
-    height: '100vh',
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
     display: 'flex',
+    position: 'fixed',
+    width: '100%',
+    height: '100%',
   },
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
-  },
-  toolbar: theme.mixins.toolbar,
 });
 
 class AppComponent extends React.Component {
@@ -34,14 +26,11 @@ class AppComponent extends React.Component {
       <div className={classes.root}>
         <Navbar />
         <Sidebar />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Workspace />
-        </main>
+        <Workspace />
       </div>
     );
   }
-};
+}
 
 AppComponent.propTypes = {
   classes: PropTypes.object.isRequired,
