@@ -2,7 +2,9 @@ import { connect } from 'react-redux';
 import FilesComponent from './FilesComponent';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    files: state.files,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

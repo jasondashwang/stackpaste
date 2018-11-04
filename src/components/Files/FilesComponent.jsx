@@ -13,17 +13,18 @@ const styles = theme => ({
 });
 
 const FilesComponent = (props) => {
-  const { classes } = props;
+  const { classes, files } = props;
   return (
     <div className={classes.wrapper}>
-      <FileTabs />
-      <CodeEditor />
+      <FileTabs files={files} />
+      <CodeEditor file={files[files.focusFid]} fid={files.focusFid} />
     </div>
   );
 };
 
 FilesComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  files: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(FilesComponent);

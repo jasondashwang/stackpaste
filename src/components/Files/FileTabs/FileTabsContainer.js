@@ -2,12 +2,6 @@ import { connect } from 'react-redux';
 import FileTabsComponent from './FileTabsComponent';
 import { updateTitleActionCreator, createFileActionCreator, focusFileActionCreator, deleteFileActionCreator } from '../ducks/actions';
 
-const mapStateToProps = (state) => {
-  return {
-    files: state.files,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     updateTitle: (fid, title) => {
@@ -25,6 +19,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const FileTabsContainer = connect(mapStateToProps, mapDispatchToProps)(FileTabsComponent);
+const FileTabsContainer = connect(null, mapDispatchToProps)(FileTabsComponent);
 
 export default FileTabsContainer;

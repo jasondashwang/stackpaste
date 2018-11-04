@@ -1,5 +1,6 @@
 import {
   UPDATE_FILE_TITLE,
+  UPDATE_FILE_BODY,
   CREATE_FILE,
   FOCUS_FILE,
   DELETE_FILE,
@@ -21,6 +22,15 @@ function AppReducer(state = initialState, action) {
   };
 
   switch (action.type) {
+    case UPDATE_FILE_BODY: {
+      const { fid, body } = action;
+      newState[fid] = {
+        ...state[fid],
+      };
+      newState[fid].body = body;
+      return newState;
+    }
+
     case UPDATE_FILE_TITLE: {
       const { fid, title } = action;
       newState[fid] = {

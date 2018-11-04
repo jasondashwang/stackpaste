@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 import CodeEditorComponent from './CodeEditorComponent';
-
-const mapStateToProps = (state) => {
-  return {};
-};
+import { updateBodyActionCreator } from '../ducks/actions';
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    updateBody: (fid, body) => {
+      dispatch(updateBodyActionCreator(fid, body));
+    },
+  };
 };
 
-const CodeEditorContainer = connect(mapStateToProps, mapDispatchToProps)(CodeEditorComponent);
+const CodeEditorContainer = connect(null, mapDispatchToProps)(CodeEditorComponent);
 
 export default CodeEditorContainer;
