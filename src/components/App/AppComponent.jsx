@@ -5,6 +5,7 @@ import Navbar from '../Navbar/NavbarContainer';
 import Workspace from '../Workspace/WorkspaceContainer';
 import Sidebar from '../Sidebar/SidebarContainer';
 
+import { normalize, schema } from 'normalizr';
 const styles = theme => ({
   root: {
     display: 'flex',
