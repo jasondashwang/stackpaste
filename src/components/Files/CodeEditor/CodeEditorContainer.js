@@ -9,6 +9,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-const DevStationContainer = connect(mapStateToProps, mapDispatchToProps)(CodeEditorComponent);
+const CodeEditorContainer = connect(mapStateToProps, mapDispatchToProps)(CodeEditorComponent);
 
-export default DevStationContainer;
+export default CodeEditorContainer;

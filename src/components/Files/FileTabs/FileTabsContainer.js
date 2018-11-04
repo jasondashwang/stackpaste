@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import FileTabsComponent from './FileTabsComponent';
-import { updateTitleActionCreator, createFileActionCreator, focusFileActionCreator, deleteFileActionCreator } from '../CodeEditor/ducks/actions';
+import { updateTitleActionCreator, createFileActionCreator, focusFileActionCreator, deleteFileActionCreator } from '../ducks/actions';
 
 const mapStateToProps = (state) => {
   return {

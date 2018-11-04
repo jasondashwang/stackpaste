@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import CodeEditor from '../CodeEditor/CodeEditorContainer';
+import Files from '../Files/FilesContainer';
 import Terminal from '../Terminal/TerminalContainer';
-import FileTabs from '../FileTabs/FileTabsContainer';
 
 const styles = theme => ({
   main: {
@@ -18,8 +17,7 @@ const WorkspaceComponent = (props) => {
   return (
     <main className={classes.main}>
       <div className={classes.toolbar} />
-      <FileTabs />
-      <CodeEditor />
+      <Files />
       <Terminal />
     </main>
   );
