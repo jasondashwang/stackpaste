@@ -28,9 +28,14 @@ const PasteSchema = new Schema({
   }],
   versions: [{
     type: Schema.Types.ObjectId,
+    ref: 'Paste',
   }],
   version: {
     type: Number,
+  },
+  terminal: {
+    type: Schema.Types.ObjectId,
+    ref: 'Terminal',
   },
 });
 

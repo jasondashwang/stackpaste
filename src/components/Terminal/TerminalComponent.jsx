@@ -13,11 +13,13 @@ const styles = theme => ({
 class TerminalComponent extends React.Component {
 
   render() {
-    const { classes } = this.props;
+    const { classes, body, updateBody } = this.props;
 
     return (
       <div className={classes.wrapper}>
         <MonacoEditor
+          value={body}
+          onChange={updateBody}
           options={{
             automaticLayout: true,
           }}
@@ -29,6 +31,8 @@ class TerminalComponent extends React.Component {
 
 TerminalComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  body: PropTypes.string.isRequired,
+  updateBody: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(TerminalComponent);

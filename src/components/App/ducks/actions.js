@@ -1,6 +1,7 @@
 import axios from 'axios';
 import history from '../../../history';
 import { receiveFilesActionCreator } from '../../Files/ducks/actions';
+import { receiveTerminalActionCreator } from '../../Terminal/ducks/actions';
 
 export const RECEIVE_PASTE = 'RECEIVE_PASTE';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
@@ -35,6 +36,7 @@ export const getPasteThunk = (short, version = '') => {
         .then((paste) => {
           dispatch(receivePasteActionCreator(paste));
           dispatch(receiveFilesActionCreator(paste.files));
+          dispatch(receiveTerminalActionCreator(paste.terminal));
         })
         .catch((err) => {
           console.error(err);
@@ -44,7 +46,7 @@ export const getPasteThunk = (short, version = '') => {
 };
 
 const preparePayload = (state) => {
-  const { app, files } = state;
+  const { app, files, terminal } = state;
   const { title, description } = app;
 
   const newFiles = [];
@@ -56,6 +58,7 @@ const preparePayload = (state) => {
     title,
     description,
     files: newFiles,
+    terminal,
   };
 };
 
@@ -66,6 +69,7 @@ export const createPasteThunk = () => {
       .then((createdPaste) => {
         dispatch(receivePasteActionCreator(createdPaste));
         dispatch(receiveFilesActionCreator(createdPaste.files));
+        dispatch(receiveTerminalActionCreator(createdPaste.terminal));
         history.push(`/${createdPaste.short}`);
       })
       .catch((err) => {
@@ -85,6 +89,7 @@ export const createVersionThunk = () => {
       .then((createdPaste) => {
         dispatch(receivePasteActionCreator(createdPaste));
         dispatch(receiveFilesActionCreator(createdPaste.files));
+        dispatch(receiveTerminalActionCreator(createdPaste.terminal));
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
       })
       .catch((err) => {
