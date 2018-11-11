@@ -1,9 +1,25 @@
 import axios from 'axios';
 import history from '../../../history';
+import { receiveFilesActionCreator } from '../../Files/ducks/actions';
+import { receiveTerminalActionCreator } from '../../Terminal/ducks/actions';
 
 export const RECEIVE_PASTE = 'RECEIVE_PASTE';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
+export const DONE_SEARCHING = 'DONE_SEARCHING';
+export const NOT_FOUND = 'NOT_FOUND';
+
+export const notFoundActionCreator = () => {
+  return {
+    type: NOT_FOUND,
+  };
+};
+
+export const doneSearchingActionCreator = () => {
+  return {
+    type: DONE_SEARCHING,
+  };
+};
 
 export const receivePasteActionCreator = (paste) => {
   return {
@@ -33,28 +49,49 @@ export const getPasteThunk = (short, version = '') => {
         .then(res => res.data)
         .then((paste) => {
           dispatch(receivePasteActionCreator(paste));
+          dispatch(receiveFilesActionCreator(paste.files));
+          dispatch(receiveTerminalActionCreator(paste.terminal));
+          dispatch(doneSearchingActionCreator());
         })
         .catch((err) => {
-          console.error(err);
+          if (err.response) {
+            dispatch(doneSearchingActionCreator());
+            if (err.response.status === 404) {
+              dispatch(notFoundActionCreator());
+            }
+          }
         });
+    } else {
+      dispatch(doneSearchingActionCreator());
     }
   };
 };
 
+const preparePayload = (state) => {
+  const { app, files, terminal } = state;
+  const { title, description } = app;
+
+  const newFiles = [];
+  files.fids.forEach((fid) => {
+    newFiles.push(files[fid]);
+  });
+
+  return {
+    title,
+    description,
+    files: newFiles,
+    terminal,
+  };
+};
 
 export const createPasteThunk = () => {
   return (dispatch, getState) => {
-
-    const { app } = getState();
-    const { title, description } = app;
-
-    axios.post('/api/pastes', {
-      title,
-      description,
-    })
+    axios.post('/api/pastes', preparePayload(getState()))
       .then(res => res.data)
       .then((createdPaste) => {
         dispatch(receivePasteActionCreator(createdPaste));
+        dispatch(receiveFilesActionCreator(createdPaste.files));
+        dispatch(receiveTerminalActionCreator(createdPaste.terminal));
         history.push(`/${createdPaste.short}`);
       })
       .catch((err) => {
@@ -66,18 +103,15 @@ export const createPasteThunk = () => {
 export const createVersionThunk = () => {
   return (dispatch, getState) => {
 
-    const { app } = getState();
-    const { title, description, short } = app;
+    const state = getState();
+    const { short } = state.app;
 
-    axios.post(`/api/pastes/${short}`, {
-      title,
-      description,
-      short,
-    })
+    axios.post(`/api/pastes/${short}`, preparePayload(state))
       .then(res => res.data)
       .then((createdPaste) => {
-        console.log(createdPaste);
         dispatch(receivePasteActionCreator(createdPaste));
+        dispatch(receiveFilesActionCreator(createdPaste.files));
+        dispatch(receiveTerminalActionCreator(createdPaste.terminal));
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
       })
       .catch((err) => {

@@ -7,6 +7,8 @@ router.get('/:short', (req, res, next) => {
   Paste.findOne({
     short: req.params.short,
   })
+    .populate('files')
+    .populate('terminal')
     .then((paste) => {
       if (paste) {
         res.json(paste);
@@ -26,6 +28,8 @@ router.get('/:short/:version', (req, res, next) => {
     short: req.params.short,
     version: req.params.version,
   })
+    .populate('files')
+    .populate('terminal')
     .then((paste) => {
       if (paste) {
         res.json(paste);
@@ -51,30 +55,30 @@ router.get('/:short/:version', (req, res, next) => {
 */
 router.post('/', (req, res, next) => {
   // Create a new File for each file
-  // const newFiles = req.body.files.map(file => new File(file));
-
-  // const newTerminal = new Terminal(req.body.terminal);
+  const newFiles = req.body.files.map(file => new File(file));
+  console.log(req.body.terminal);
+  const newTerminal = new Terminal(req.body.terminal);
   const newPaste = new Paste({
     title: req.body.title,
     description: req.body.description,
   });
 
   // Map paste's files to each file.id
-  // newPaste.files = newFiles.map(file => file._id);
+  newPaste.files = newFiles.map(file => file._id);
+  newPaste.terminal = newTerminal._id;
   let createdPaste;
 
   newPaste.save()
     .then((dbPaste) => {
       createdPaste = dbPaste;
-      //  uncomment when ready to use (also debug possibly)
-//      return Promise.all(newFiles.map(file => file.save()));
-//    })
-//   .then((dbFiles) => {
-//     createdPaste.files = dbFiles;
-//      return newTerminal.save();
-//    })
-//   .then((dbTerminal) => {
-//      createdPaste.terminal = dbTerminal;
+      return Promise.all(newFiles.map(file => file.save()));
+    })
+    .then((dbFiles) => {
+      createdPaste.files = dbFiles;
+      return newTerminal.save();
+    })
+    .then((dbTerminal) => {
+      createdPaste.terminal = dbTerminal;
       res.status(201).json(createdPaste);
     })
     .catch((err) => {
@@ -83,6 +87,9 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:short', (req, res, next) => {
+  let newFiles;
+  let createdPaste;
+  let newTerminal;
   Paste.findOne({
     short: req.params.short,
   })
@@ -95,6 +102,17 @@ router.post('/:short', (req, res, next) => {
           short: req.params.short,
           version,
         });
+        newFiles = req.body.files.map(file => new File({
+          title: file.title,
+          body: file.body,
+        }));
+        newPaste.files = newFiles.map(file => file._id);
+
+        newTerminal = new Terminal({
+          body: req.body.terminal,
+        });
+        newPaste.terminal = newTerminal._id;
+
         paste.versions.push(newPaste._id);
         return Promise.all([paste.save(), newPaste.save()]);
       }
@@ -103,24 +121,20 @@ router.post('/:short', (req, res, next) => {
       throw err;
     })
     .then((createdPastes) => {
-      console.log(createdPastes[0]);
-      res.json(createdPastes[1]);
+      createdPaste = createdPastes[1];
+      return Promise.all(newFiles.map(file => file.save()));
+    })
+    .then((files) => {
+      createdPaste.files = files;
+      return newTerminal.save();
+    })
+    .then((terminal) => {
+      createdPaste.terminal = terminal;
+      res.status(201).json(createdPaste);
     })
     .catch((err) => {
       next(err);
     });
-})
-
-/*
-  Request has
-  {
-    title,
-    description,
-    pasteId,
-  }
-*/
-router.put('/', (req, res, next) => {
-  res.status(201).end();
 });
 
 module.exports = router;

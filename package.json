@@ -6,7 +6,7 @@
     "start": "node ./server/index.js"
   },
   "dependencies": {
-    "@material-ui/core": "^3.1.0",
+    "@material-ui/core": "^3.4.0",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",

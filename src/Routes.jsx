@@ -1,21 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import history from './history';
 
 import AppContainer from './components/App/AppContainer';
+import NotFound from './components/NotFound/NotFoundComponent.jsx';
 
-class Routes extends React.Component {
-  render () {
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route exact path="/" component={AppContainer} />
-          <Route exact path="/:short" component={AppContainer} />
-          <Route exact path="/:short/:version" component={AppContainer} />
-        </Switch>
-      </Router>
-    );
-  }
+function Routes() {
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/" component={AppContainer} />
+        <Route exact path="/:short" component={AppContainer} />
+        <Route exact path="/:short/:version" component={AppContainer} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
+  );
 }
 
 export default Routes;

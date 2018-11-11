@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import WorkspaceComponent from './WorkspaceComponent';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

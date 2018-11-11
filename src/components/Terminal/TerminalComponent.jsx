@@ -5,19 +5,25 @@ import MonacoEditor from 'react-monaco-editor';
 
 const styles = theme => ({
   wrapper: {
-    height: '100vh',
-    width: '50vw',
+    height: '40%',
+    width: '100%',
   },
 });
 
 class TerminalComponent extends React.Component {
 
   render() {
-    const { classes } = this.props;
+    const { classes, body, updateBody } = this.props;
 
     return (
       <div className={classes.wrapper}>
-        <MonacoEditor />
+        <MonacoEditor
+          value={body}
+          onChange={updateBody}
+          options={{
+            automaticLayout: true,
+          }}
+        />
       </div>
     );
   }
@@ -25,6 +31,8 @@ class TerminalComponent extends React.Component {
 
 TerminalComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  body: PropTypes.string.isRequired,
+  updateBody: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(TerminalComponent);
