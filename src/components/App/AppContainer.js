@@ -5,6 +5,9 @@ import { getPasteThunk } from './ducks/actions';
 
 const mapStateToProps = (state) => {
   return {
+    _id: state.app._id,
+    searching: state.app.searching,
+    notFound: state.app.notFound,
   };
 };
 

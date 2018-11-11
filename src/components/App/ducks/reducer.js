@@ -2,19 +2,44 @@ import {
   RECEIVE_PASTE,
   UPDATE_TITLE,
   UPDATE_DESCRIPTION,
+  DONE_SEARCHING,
+  NOT_FOUND,
 } from './actions';
 
-function AppReducer(state = { title: '', short: '', description: '' }, action) {
+const initialState = {
+  title: '',
+  short: '',
+  description: '',
+  searching: true,
+  notFound: false,
+};
+
+function AppReducer(state = initialState, action) {
 
   switch (action.type) {
+    case NOT_FOUND: {
+      return {
+        ...state,
+        notFound: true,
+      };
+    }
+
+    case DONE_SEARCHING: {
+      return {
+        ...state,
+        searching: false,
+      };
+    }
+
     case RECEIVE_PASTE: {
-      const { short, title, description } = action.paste;
+      const { short, title, description, _id } = action.paste;
 
       return {
         ...state,
         short,
         title,
         description,
+        _id,
       };
     }
 
