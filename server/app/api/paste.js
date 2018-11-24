@@ -109,7 +109,7 @@ router.post('/:short', (req, res, next) => {
         newPaste.files = newFiles.map(file => file._id);
 
         newTerminal = new Terminal({
-          body: req.body.terminal,
+          body: req.body.terminal.body,
         });
         newPaste.terminal = newTerminal._id;
 
