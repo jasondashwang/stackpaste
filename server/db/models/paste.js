@@ -26,10 +26,14 @@ const PasteSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'File',
   }],
-  versions: [{
+  root: {
     type: Schema.Types.ObjectId,
     ref: 'Paste',
-  }],
+  },
+  numOfChildren: {
+    type: Schema.Types.Number,
+    default: 0,
+  },
   version: {
     type: Number,
   },

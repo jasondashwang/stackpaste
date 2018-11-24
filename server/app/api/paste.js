@@ -6,6 +6,7 @@ const Terminal = require('../../db/models/terminal');
 router.get('/:short', (req, res, next) => {
   Paste.findOne({
     short: req.params.short,
+    version: 0,
   })
     .populate('files')
     .populate('terminal')
@@ -61,6 +62,7 @@ router.post('/', (req, res, next) => {
   const newPaste = new Paste({
     title: req.body.title,
     description: req.body.description,
+    version: 0,
   });
 
   // Map paste's files to each file.id
@@ -92,15 +94,18 @@ router.post('/:short', (req, res, next) => {
   let newTerminal;
   Paste.findOne({
     short: req.params.short,
+    version: 0,
   })
     .then((paste) => {
       if (paste) {
-        const version = paste.versions.length + 1;
+        const version = paste.numOfChildren + 1;
+        paste.numOfChildren += 1;
         const newPaste = new Paste({
           title: req.body.title,
           description: req.body.description,
           short: req.params.short,
           version,
+          root: paste._id,
         });
         newFiles = req.body.files.map(file => new File({
           title: file.title,
@@ -113,7 +118,6 @@ router.post('/:short', (req, res, next) => {
         });
         newPaste.terminal = newTerminal._id;
 
-        paste.versions.push(newPaste._id);
         return Promise.all([paste.save(), newPaste.save()]);
       }
       const err = new Error(`Paste not found with short: ${req.params.short}`);
