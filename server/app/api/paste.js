@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const mongoose = require('mongoose');
 const Paste = require('../../db/models/paste');
 const File = require('../../db/models/file');
 const Terminal = require('../../db/models/terminal');
@@ -31,6 +32,14 @@ router.get('/:short/:version', (req, res, next) => {
   })
     .populate('files')
     .populate('terminal')
+    .populate({
+      path: 'root',
+      populate: [{
+        path: 'files',
+      }, {
+        path: 'terminal',
+      }],
+    })
     .then((paste) => {
       if (paste) {
         res.json(paste);
@@ -92,12 +101,17 @@ router.post('/:short', (req, res, next) => {
   let newFiles;
   let createdPaste;
   let newTerminal;
+  let root = {};
   Paste.findOne({
     short: req.params.short,
     version: 0,
   })
+    .populate('files')
+    .populate('terminal')
     .then((paste) => {
       if (paste) {
+        root.files = paste.files;
+        root.terminal = paste.terminal;
         const version = paste.numOfChildren + 1;
         paste.numOfChildren += 1;
         const newPaste = new Paste({
@@ -105,7 +119,7 @@ router.post('/:short', (req, res, next) => {
           description: req.body.description,
           short: req.params.short,
           version,
-          root: paste._id,
+          root: mongoose.Types.ObjectId(paste._id),
         });
         newFiles = req.body.files.map(file => new File({
           title: file.title,
@@ -125,7 +139,8 @@ router.post('/:short', (req, res, next) => {
       throw err;
     })
     .then((createdPastes) => {
-      createdPaste = createdPastes[1];
+      // allows fields to be mutable
+      createdPaste = createdPastes[1].toObject();
       return Promise.all(newFiles.map(file => file.save()));
     })
     .then((files) => {
@@ -134,6 +149,7 @@ router.post('/:short', (req, res, next) => {
     })
     .then((terminal) => {
       createdPaste.terminal = terminal;
+      createdPaste.root = root;
       res.status(201).json(createdPaste);
     })
     .catch((err) => {

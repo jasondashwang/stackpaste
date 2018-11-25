@@ -7,6 +7,8 @@ import {
 } from './actions';
 
 const initialState = {
+  _id: '',
+  version: 0,
   title: '',
   short: '',
   description: '',
@@ -32,7 +34,7 @@ function AppReducer(state = initialState, action) {
     }
 
     case RECEIVE_PASTE: {
-      const { short, title, description, _id } = action.paste;
+      const { short, title, description, _id, version } = action.paste;
 
       return {
         ...state,
@@ -40,6 +42,7 @@ function AppReducer(state = initialState, action) {
         title,
         description,
         _id,
+        version,
       };
     }
 
