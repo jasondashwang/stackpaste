@@ -5,6 +5,7 @@ import {
   CREATE_FILE,
   FOCUS_FILE,
   DELETE_FILE,
+  RECEIVE_ROOT_FILES,
 } from './actions';
 // what we plan on receiving from backend
 
@@ -15,6 +16,7 @@ const initialState = {
     title: 'New File',
     body: '',
   },
+  rootFiles: {},
 };
 
 function AppReducer(state = initialState, action) {
@@ -23,6 +25,11 @@ function AppReducer(state = initialState, action) {
   };
 
   switch (action.type) {
+    case RECEIVE_ROOT_FILES: {
+      newState.rootFiles = action.rootFiles;
+      return newState;
+    }
+
     case RECEIVE_FILES: {
       const { files } = action;
       const { length } = files;

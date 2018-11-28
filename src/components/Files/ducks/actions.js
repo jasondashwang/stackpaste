@@ -4,6 +4,14 @@ export const FOCUS_FILE = 'FOCUS_FILE';
 export const DELETE_FILE = 'DELETE_FILE';
 export const UPDATE_FILE_BODY = 'UPDATE_FILE_BODY';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
+export const RECEIVE_ROOT_FILES = 'RECEIVE_ROOT_FILES';
+
+export const receiveRootFilesActionCreator = (rootFiles) => {
+  return {
+    type: RECEIVE_ROOT_FILES,
+    rootFiles,
+  };
+};
 
 export const receiveFilesActionCreator = (files) => {
   return {

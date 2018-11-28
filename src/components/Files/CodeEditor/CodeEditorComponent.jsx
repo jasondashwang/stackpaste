@@ -12,12 +12,11 @@ const styles = theme => ({
 });
 
 const editorWillMount = (monaco) => {
-  monaco.editor.defineTheme('myTheme', {
-    base: 'vs',
-    inherit: true,
-    rules: [{ background: '#20262e' }],
-  });
-  monaco.editor.setTheme('myTheme');
+  // monaco.editor.defineTheme('myTheme', {
+  //   base: 'vs',
+  //   inherit: true,
+  // });
+  // monaco.editor.setTheme('myTheme');
 };
 
 const editorDidMount = (editor, monaco) => {
