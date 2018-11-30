@@ -20,25 +20,25 @@ export const receiveFilesActionCreator = (files) => {
   };
 };
 
-export const updateBodyActionCreator = (fid, body) => {
+export const updateBodyActionCreator = (id, body) => {
   return {
     type: UPDATE_FILE_BODY,
-    fid,
+    id,
     body,
   };
 };
 
-export const deleteFileActionCreator = (fid) => {
+export const deleteFileActionCreator = (index) => {
   return {
     type: DELETE_FILE,
-    fid,
+    index,
   };
 };
 
-export const focusFileActionCreator = (fid) => {
+export const focusFileActionCreator = (index) => {
   return {
     type: FOCUS_FILE,
-    fid,
+    index,
   };
 };
 
@@ -48,10 +48,10 @@ export const createFileActionCreator = () => {
   };
 };
 
-export const updateTitleActionCreator = (fid, title) => {
+export const updateTitleActionCreator = (id, title) => {
   return {
     type: UPDATE_FILE_TITLE,
-    fid,
+    id,
     title,
   };
 };

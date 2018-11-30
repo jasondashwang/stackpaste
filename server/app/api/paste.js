@@ -65,9 +65,14 @@ router.get('/:short/:version', (req, res, next) => {
 */
 router.post('/', (req, res, next) => {
   // Create a new File for each file
-  const newFiles = req.body.files.map(file => new File(file));
-  console.log(req.body.terminal);
-  const newTerminal = new Terminal(req.body.terminal);
+  const newFiles = req.body.files.map(file => new File({
+    title: file.title,
+    body: file.body,
+  }));
+  const newTerminal = new Terminal({
+    body: req.body.terminal.body,
+  });
+
   const newPaste = new Paste({
     title: req.body.title,
     description: req.body.description,
@@ -101,7 +106,7 @@ router.post('/:short', (req, res, next) => {
   let newFiles;
   let createdPaste;
   let newTerminal;
-  let root = {};
+  const root = {};
   Paste.findOne({
     short: req.params.short,
     version: 0,
@@ -114,6 +119,7 @@ router.post('/:short', (req, res, next) => {
         root.terminal = paste.terminal;
         const version = paste.numOfChildren + 1;
         paste.numOfChildren += 1;
+
         const newPaste = new Paste({
           title: req.body.title,
           description: req.body.description,

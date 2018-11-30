@@ -4,17 +4,17 @@ import { updateTitleActionCreator, createFileActionCreator, focusFileActionCreat
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateTitle: (fid, title) => {
-      dispatch(updateTitleActionCreator(fid, title));
+    updateTitle: (id, title) => {
+      dispatch(updateTitleActionCreator(id, title));
     },
     createFile: () => {
       dispatch(createFileActionCreator());
     },
-    focusFile: (fid) => {
-      dispatch(focusFileActionCreator(fid));
+    focusFile: (index) => {
+      dispatch(focusFileActionCreator(index));
     },
-    deleteFile: (fid) => {
-      dispatch(deleteFileActionCreator(fid));
+    deleteFile: (index) => {
+      dispatch(deleteFileActionCreator(index));
     },
   };
 };

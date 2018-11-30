@@ -4,8 +4,8 @@ import { updateBodyActionCreator } from '../ducks/actions';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateBody: (fid, body) => {
-      dispatch(updateBodyActionCreator(fid, body));
+    updateBody: (id, body) => {
+      dispatch(updateBodyActionCreator(id, body));
     },
   };
 };

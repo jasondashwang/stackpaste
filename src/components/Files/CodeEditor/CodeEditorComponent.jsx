@@ -25,8 +25,8 @@ const editorDidMount = (editor, monaco) => {
 
 class CodeEditorComponent extends React.Component {
   handleChange = (body) => {
-    const { fid, updateBody } = this.props;
-    updateBody(fid, body);
+    const { file, updateBody } = this.props;
+    updateBody(file._id, body);
   }
 
   render() {
@@ -51,7 +51,6 @@ class CodeEditorComponent extends React.Component {
 CodeEditorComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   file: PropTypes.object.isRequired,
-  fid: PropTypes.number.isRequired,
   updateBody: PropTypes.func.isRequired,
 };
 

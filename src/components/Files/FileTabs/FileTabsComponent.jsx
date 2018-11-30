@@ -27,40 +27,40 @@ const styles = theme => ({
 });
 
 const EditTitle = (props) => {
-  const { title, fid, handleChange } = props;
+  const { title, id, handleChange } = props;
   return (
     <input
       value={title}
-      onChange={(evt) => { handleChange(fid, evt.target.value); }}
+      onChange={(evt) => { handleChange(id, evt.target.value); }}
     />
   );
 };
 
 EditTitle.propTypes = {
   title: PropTypes.string.isRequired,
-  fid: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 
 const FileTabsComponent = (props) => {
   const { classes, files, updateTitle, createFile, focusFile, deleteFile } = props;
 
-  const { focusFid, fids } = files;
+  const { focusIndex, ids } = files;
   return (
     <Paper className={classes.wrapper}>
       {
-        fids.map((fid) => {
-          const title = files[fid].title;
+        ids.map((id, index) => {
+          const title = files[id].title;
           return (
             <Chip
               color="primary"
-              key={fid}
+              key={id}
               className={classNames(classes.chip, {
-                [classes.activeChip]: fid === focusFid,
+                [classes.activeChip]: index === focusIndex,
               })}
-              onClick={() => { focusFile(fid); }}
-              onDelete={() => { deleteFile(fid); }}
-              label={(<EditTitle title={title} fid={fid} handleChange={updateTitle} />)}
+              onClick={() => { focusFile(index); }}
+              onDelete={() => { deleteFile(index); }}
+              label={(<EditTitle title={title} id={id} handleChange={updateTitle} />)}
             />);
         })
       }
