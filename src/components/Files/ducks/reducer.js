@@ -11,9 +11,9 @@ import {
 
 const initialState = {
   focusIndex: 0,
-  ids: [0],
+  ids: ['0'],
   0: {
-    _id: 0,
+    _id: '0',
     title: 'New File',
     body: '',
   },
@@ -71,7 +71,7 @@ function AppReducer(state = initialState, action) {
     case CREATE_FILE: {
       newState.ids = [...state.ids];
       // Add temp id as just the current count and increase by 1
-      const newId = count;
+      const newId = String(count);
       count += 1;
 
       newState.ids.push(newId);
@@ -97,9 +97,9 @@ function AppReducer(state = initialState, action) {
       if (newState.ids.length === 0) {
         return {
           focusIndex: 0,
-          ids: [0],
+          ids: ['0'],
           0: {
-            _id: 0,
+            _id: '0',
             title: 'New File',
             body: '',
           },

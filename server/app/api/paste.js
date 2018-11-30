@@ -130,6 +130,7 @@ router.post('/:short', (req, res, next) => {
         newFiles = req.body.files.map(file => new File({
           title: file.title,
           body: file.body,
+          rootId: file._id.length === 24 ? file._id : '',
         }));
         newPaste.files = newFiles.map(file => file._id);
 

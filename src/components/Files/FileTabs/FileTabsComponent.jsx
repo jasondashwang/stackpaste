@@ -38,7 +38,7 @@ const EditTitle = (props) => {
 
 EditTitle.propTypes = {
   title: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

@@ -11,7 +11,10 @@ const FileSchema = new Schema({
   body: {
     type: String,
   },
-
+  rootId: {
+    type: String,
+    default: '',
+  },
 });
 
 module.exports = mongoose.model('File', FileSchema);

@@ -76,8 +76,8 @@ const preparePayload = (state) => {
   const { title, description } = app;
 
   const newFiles = [];
-  files.fids.forEach((fid) => {
-    newFiles.push(files[fid]);
+  files.ids.forEach((id) => {
+    newFiles.push(files[id]);
   });
 
   return {
