@@ -13,11 +13,11 @@ const styles = theme => ({
 });
 
 const FilesComponent = (props) => {
-  const { classes, files } = props;
+  const { classes, files, version } = props;
   return (
     <div className={classes.wrapper}>
       <FileTabs files={files} />
-      <CodeEditor file={files[files.focusFid]} fid={files.focusFid} />
+      <CodeEditor file={files[files.ids[files.focusIndex]]} />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor, { MonacoDiffEditor } from 'react-monaco-editor';
 
 const styles = theme => ({
   wrapper: {
@@ -12,12 +12,11 @@ const styles = theme => ({
 });
 
 const editorWillMount = (monaco) => {
-  monaco.editor.defineTheme('myTheme', {
-    base: 'vs',
-    inherit: true,
-    rules: [{ background: '#20262e' }],
-  });
-  monaco.editor.setTheme('myTheme');
+  // monaco.editor.defineTheme('myTheme', {
+  //   base: 'vs',
+  //   inherit: true,
+  // });
+  // monaco.editor.setTheme('myTheme');
 };
 
 const editorDidMount = (editor, monaco) => {
@@ -26,24 +25,46 @@ const editorDidMount = (editor, monaco) => {
 
 class CodeEditorComponent extends React.Component {
   handleChange = (body) => {
-    const { fid, updateBody } = this.props;
-    updateBody(fid, body);
+    const { file, updateBody } = this.props;
+    updateBody(file._id, body);
   }
 
   render() {
-    const { classes, file } = this.props;
+    const { classes, file, version, rootFiles } = this.props;
+    let originalBody = '';
+    if (file.rootId && file.rootId !== '' && rootFiles[file.rootId]) {
+      originalBody = rootFiles[file.rootId].body;
+    }
 
     return (
       <div className={classes.wrapper}>
-        <MonacoEditor
-          options={{
-            automaticLayout: true,
-          }}
-          value={file.body}
-          editorDidMount={editorDidMount}
-          editorWillMount={editorWillMount}
-          onChange={this.handleChange}
-        />
+        {
+          version === 0
+            ? (
+              <MonacoEditor
+                options={{
+                  automaticLayout: true,
+                }}
+                value={file.body}
+                editorDidMount={editorDidMount}
+                editorWillMount={editorWillMount}
+                onChange={this.handleChange}
+              />
+            )
+            : (
+              <MonacoDiffEditor
+                options={{
+                  automaticLayout: true,
+                }}
+                original={originalBody}
+                value={file.body}
+                editorWillMount={editorWillMount}
+                onChange={this.handleChange}
+              />
+            )
+
+        }
+
       </div>
     );
   }
@@ -52,8 +73,9 @@ class CodeEditorComponent extends React.Component {
 CodeEditorComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   file: PropTypes.object.isRequired,
-  fid: PropTypes.number.isRequired,
   updateBody: PropTypes.func.isRequired,
+  version: PropTypes.number.isRequired,
+  rootFiles: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(CodeEditorComponent);

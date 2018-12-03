@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../../../history';
-import { receiveFilesActionCreator } from '../../Files/ducks/actions';
-import { receiveTerminalActionCreator } from '../../Terminal/ducks/actions';
+import { receiveFilesActionCreator, receiveRootFilesActionCreator } from '../../Files/ducks/actions';
+import { receiveTerminalActionCreator, receiveRootTerminalActionCreator } from '../../Terminal/ducks/actions';
 
 export const RECEIVE_PASTE = 'RECEIVE_PASTE';
 export const UPDATE_TITLE = 'UPDATE_TITLE';
@@ -51,6 +51,10 @@ export const getPasteThunk = (short, version = '') => {
           dispatch(receivePasteActionCreator(paste));
           dispatch(receiveFilesActionCreator(paste.files));
           dispatch(receiveTerminalActionCreator(paste.terminal));
+          if (paste.version > 0) {
+            dispatch(receiveRootFilesActionCreator(paste.root.files));
+            dispatch(receiveRootTerminalActionCreator(paste.root));
+          }
           dispatch(doneSearchingActionCreator());
         })
         .catch((err) => {
@@ -72,8 +76,8 @@ const preparePayload = (state) => {
   const { title, description } = app;
 
   const newFiles = [];
-  files.fids.forEach((fid) => {
-    newFiles.push(files[fid]);
+  files.ids.forEach((id) => {
+    newFiles.push(files[id]);
   });
 
   return {
@@ -112,6 +116,10 @@ export const createVersionThunk = () => {
         dispatch(receivePasteActionCreator(createdPaste));
         dispatch(receiveFilesActionCreator(createdPaste.files));
         dispatch(receiveTerminalActionCreator(createdPaste.terminal));
+        if (createdPaste.version > 0) {
+          dispatch(receiveRootFilesActionCreator(createdPaste.root.files));
+          dispatch(receiveRootTerminalActionCreator(createdPaste.root));
+        }
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
       })
       .catch((err) => {

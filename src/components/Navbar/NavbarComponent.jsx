@@ -6,10 +6,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    boxShadow: 'none',
   },
   button: {
     margin: theme.spacing.unit,
@@ -42,14 +44,14 @@ class NavbarComponent extends React.Component {
           {
             short ?
               (
-                <Button color="primary" className={classes.button} onClick={this.update}>
-                  Update
+                <Button color="inherit" className={classes.button} onClick={this.update}>
+                  <CloudUploadIcon />	 &nbsp; Update
                 </Button>
               )
               :
               (
-                <Button color="primary" className={classes.button} onClick={this.save}>
-                  Save
+                <Button color="inherit" className={classes.button} onClick={this.save}>
+                  <CloudUploadIcon />	 &nbsp; Save
                 </Button>
               )
           }

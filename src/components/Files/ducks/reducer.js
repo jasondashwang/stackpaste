@@ -5,96 +5,116 @@ import {
   CREATE_FILE,
   FOCUS_FILE,
   DELETE_FILE,
+  RECEIVE_ROOT_FILES,
 } from './actions';
 // what we plan on receiving from backend
 
 const initialState = {
-  focusFid: 0,
-  fids: [0],
+  focusIndex: 0,
+  ids: ['0'],
   0: {
+    _id: '0',
     title: 'New File',
     body: '',
   },
+  rootFiles: {},
 };
 
+let count = 1;
+
 function AppReducer(state = initialState, action) {
-  const newState = {
+  let newState = {
     ...state,
   };
 
   switch (action.type) {
+    case RECEIVE_ROOT_FILES: {
+      newState.rootFiles = {};
+      action.rootFiles.forEach((rootFile) => {
+        newState.rootFiles[rootFile._id] = rootFile;
+      });
+      return newState;
+    }
+
     case RECEIVE_FILES: {
       const { files } = action;
-      const { length } = files;
-      const newFids = [];
 
-      for (let fid = 0; fid < length; fid += 1) {
-        newFids.push(fid);
-        newState[fid] = files[fid];
-      }
+      newState = {
+        focusIndex: 0,
+        ids: [],
+        rootFiles: {},
+      };
 
-      newState.fids = newFids;
+      files.forEach((file) => {
+        newState.ids.push(file._id);
+        newState[file._id] = file;
+      });
+
       return newState;
     }
 
     case UPDATE_FILE_BODY: {
-      const { fid, body } = action;
-      newState[fid] = {
-        ...state[fid],
+      const { id, body } = action;
+      newState[id] = {
+        ...state[id],
       };
-      newState[fid].body = body;
+      newState[id].body = body;
       return newState;
     }
 
     case UPDATE_FILE_TITLE: {
-      const { fid, title } = action;
-      newState[fid] = {
-        ...state[fid],
+      const { id, title } = action;
+      newState[id] = {
+        ...state[id],
       };
-      newState[fid].title = title;
+      newState[id].title = title;
       return newState;
     }
 
     case CREATE_FILE: {
-      newState.fids = [...state.fids];
-      // Get the largest fid which is always at the end
-      const newFid = newState.fids[newState.fids.length - 1] + 1;
-      newState.fids.push(newFid);
-      newState[newFid] = {
+      newState.ids = [...state.ids];
+      // Add temp id as just the current count and increase by 1
+      const newId = String(count);
+      count += 1;
+
+      newState.ids.push(newId);
+      newState[newId] = {
+        _id: newId,
         title: 'New File',
         body: '',
       };
-      newState.focusFid = newFid;
+      newState.focusIndex = newState.ids.length - 1;
       return newState;
     }
 
     case FOCUS_FILE: {
-      newState.focusFid = action.fid;
+      newState.focusIndex = action.index;
       return newState;
     }
 
     case DELETE_FILE: {
-      newState.fids = state.fids.filter(fid => fid !== action.fid);
-      delete newState[action.fid];
+      const deleteId = newState.ids[action.index];
+      newState.ids = state.ids.filter(id => id !== deleteId);
+      delete newState[deleteId];
 
-      if (newState.fids.length === 0) {
+      if (newState.ids.length === 0) {
         return {
-          focusFid: 0,
-          fids: [0],
+          focusIndex: 0,
+          ids: ['0'],
           0: {
+            _id: '0',
             title: 'New File',
             body: '',
           },
+          rootFiles: newState.rootFiles,
         };
       }
+
       // If we are deleting a file we are currently focused on
-      if (newState.focusFid === action.fid) {
-        const currIndex = state.fids.indexOf(action.fid);
-        if (currIndex === 0) {
-          newState.focusFid = newState.fids[0];
-        } else {
-          newState.focusFid = state.fids[currIndex - 1];
-        }
+      if (newState.focusIndex === 0) {
+        newState.focusIndex = 0;
+      } else {
+        newState.focusIndex -= 1;
       }
       return newState;
     }
