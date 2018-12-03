@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor, { MonacoDiffEditor } from 'react-monaco-editor';
 
 const styles = theme => ({
   wrapper: {
@@ -30,19 +30,41 @@ class CodeEditorComponent extends React.Component {
   }
 
   render() {
-    const { classes, file } = this.props;
+    const { classes, file, version, rootFiles } = this.props;
+    let originalBody = '';
+    if (file.rootId && file.rootId !== '' && rootFiles[file.rootId]) {
+      originalBody = rootFiles[file.rootId].body;
+    }
 
     return (
       <div className={classes.wrapper}>
-        <MonacoEditor
-          options={{
-            automaticLayout: true,
-          }}
-          value={file.body}
-          editorDidMount={editorDidMount}
-          editorWillMount={editorWillMount}
-          onChange={this.handleChange}
-        />
+        {
+          version === 0
+            ? (
+              <MonacoEditor
+                options={{
+                  automaticLayout: true,
+                }}
+                value={file.body}
+                editorDidMount={editorDidMount}
+                editorWillMount={editorWillMount}
+                onChange={this.handleChange}
+              />
+            )
+            : (
+              <MonacoDiffEditor
+                options={{
+                  automaticLayout: true,
+                }}
+                original={originalBody}
+                value={file.body}
+                editorWillMount={editorWillMount}
+                onChange={this.handleChange}
+              />
+            )
+
+        }
+
       </div>
     );
   }
@@ -52,6 +74,8 @@ CodeEditorComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   file: PropTypes.object.isRequired,
   updateBody: PropTypes.func.isRequired,
+  version: PropTypes.number.isRequired,
+  rootFiles: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(CodeEditorComponent);

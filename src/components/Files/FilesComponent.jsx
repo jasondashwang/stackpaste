@@ -13,7 +13,7 @@ const styles = theme => ({
 });
 
 const FilesComponent = (props) => {
-  const { classes, files } = props;
+  const { classes, files, version } = props;
   return (
     <div className={classes.wrapper}>
       <FileTabs files={files} />
