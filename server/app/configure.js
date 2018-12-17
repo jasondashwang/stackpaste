@@ -17,7 +17,7 @@ module.exports = (app) => {
 
   // Logging and compression middleware
   app.use(loggingMiddleware);
-  app.setValue('indexPath', indexPath);
+  app.set('indexPath', indexPath);
 
   // static middleware
   app.use(express.static(npmPath));
