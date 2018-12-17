@@ -4,9 +4,6 @@ const express = require('express');
 
 const httpApp = express();
 
-const rootPath = path.join(__dirname, '../../');
-const indexPath = path.join(rootPath, './dist/index.html');
-
 module.exports = httpApp;
 
 /*
@@ -30,7 +27,7 @@ httpApp.use('/api', require('./api'));
 
 // Send index.html middleware
 const sendIndex = (req, res) => {
-  res.sendFile(indexPath);
+  res.sendFile('index.html');
 };
 
 httpApp.get('/*', sendIndex);
