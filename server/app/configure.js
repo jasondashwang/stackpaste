@@ -13,9 +13,11 @@ module.exports = (app) => {
   const npmPath = path.join(root, './node_modules');
   const publicPath = path.join(root, './public');
   const distPath = path.join(root, './dist');
+  const indexPath = path.join(distPath, './index.html');
 
   // Logging and compression middleware
   app.use(loggingMiddleware);
+  app.setValue('indexPath', indexPath);
 
   // static middleware
   app.use(express.static(npmPath));
