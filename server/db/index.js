@@ -5,11 +5,12 @@ const chalk = require('chalk');
 
 mongoose.Promise = require('bluebird');
 
-const localURI = 'localhost:27017/stackpaste';
+const localURI = process.env.DATABASE_URI || 'mongodb://localhost:27017/stackpaste';
 
-const connection = mongoose.connect(`mongodb://${localURI}`, {
+const connection = mongoose.connect(`${localURI}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
+  dbName: 'stackpaste-dev',
 });
 
 connection

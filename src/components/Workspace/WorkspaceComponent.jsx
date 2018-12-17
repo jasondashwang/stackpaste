@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Files from '../Files/FilesContainer';
 import Terminal from '../Terminal/TerminalContainer';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   main: {
@@ -10,6 +11,13 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
   },
   toolbar: theme.mixins.toolbar,
+  divider: {
+    height: '32px',
+    backgroundColor: '#e0e0e0',
+  },
+  header: {
+    textAlign: 'center',
+  }
 });
 
 const WorkspaceComponent = (props) => {
@@ -18,6 +26,9 @@ const WorkspaceComponent = (props) => {
     <main className={classes.main}>
       <div className={classes.toolbar} />
       <Files />
+      <div className={classes.divider}>
+        <Typography variant="h6" color="inherit" noWrap className={classes.header}>Terminal Output</Typography>
+      </div>
       <Terminal />
     </main>
   );

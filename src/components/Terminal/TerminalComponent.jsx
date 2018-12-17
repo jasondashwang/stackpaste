@@ -7,8 +7,9 @@ import DiffTerminal from './DiffTerminalComponent';
 
 const styles = theme => ({
   wrapper: {
-    height: '40%',
+    height: '37%',
     width: '100%',
+    borderTop: '1px solid #cfd0d2',
   },
 });
 
@@ -27,6 +28,7 @@ class TerminalComponent extends React.Component {
               options={{
                 automaticLayout: true,
               }}
+              language="text"
             />
           ) : (
             <DiffTerminal

@@ -44,6 +44,7 @@ class CodeEditorComponent extends React.Component {
               <MonacoEditor
                 options={{
                   automaticLayout: true,
+                  value: 'Paste code snippet here'
                 }}
                 value={file.body}
                 editorDidMount={editorDidMount}

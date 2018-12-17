@@ -2,16 +2,12 @@
 const path = require('path');
 const express = require('express');
 
-const httpsApp = express();
 const httpApp = express();
 
 const rootPath = path.join(__dirname, '../../');
 const indexPath = path.join(rootPath, './dist/index.html');
 
-module.exports = {
-  App: httpsApp,
-  redirectApp: httpApp,
-};
+module.exports = httpApp;
 
 /*
 NOTICE:
@@ -24,11 +20,8 @@ in the meantime I doubled the routes so we wouldnt have to rewrite them with htt
 // Static and Parsing Middleware:
 
 require('./configure')(httpApp);
-require('./configure')(httpsApp);
 // API routes
-httpsApp.use('/api', require('./api'));
 httpApp.use('/api', require('./api'));
-
 
 // Add Auth Routes here
 
@@ -40,7 +33,6 @@ const sendIndex = (req, res) => {
   res.sendFile(indexPath);
 };
 
-httpsApp.get('/*', sendIndex);
 httpApp.get('/*', sendIndex);
 
 // Rejects any file route
@@ -54,7 +46,6 @@ const fileReject = (req, res, next) => {
   }
 };
 
-httpsApp.use(fileReject);
 httpApp.use(fileReject);
 
 // Error handling endware
@@ -67,5 +58,4 @@ const errorHandler = (err, req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error.');
 };
 
-httpsApp.use(errorHandler);
 httpApp.use(errorHandler);

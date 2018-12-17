@@ -12,6 +12,7 @@ function DiffTerminalComponent(props) {
       options={{
         automaticLayout: true,
       }}
+      language="text"
     />
   );
 }
