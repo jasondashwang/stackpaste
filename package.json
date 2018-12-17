@@ -1,5 +1,11 @@
 {
+  "name": "stackpaste",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
+    "heroku_postbuild": "webpack -p",
     "build": "webpack --mode production",
     "b-start": "nodemon ./server/index.js",
     "dev-start": "webpack -w --mode=development & nodemon ./server/index.js",
