@@ -5,6 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import classNames from 'classnames';
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DoneIcon from '@material-ui/icons/Done';
+import IconButton from '@material-ui/core/IconButton';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   wrapper: {
@@ -18,29 +22,71 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
   chip: {
-    borderRadius: '0px',
+    borderRadius: '10px 10px 0px 0px',
     height: '100%',
   },
   activeChip: {
     backgroundColor: 'rgb(101, 115, 195)',
   },
+  title: {
+    marginTop: '1em',
+    marginBottom: '1em',
+    fontSize: '1em',
+  },
+  input: {
+    "-webkit-appearance": 'none',
+  },
 });
 
-const EditTitle = (props) => {
-  const { title, id, handleChange } = props;
-  return (
-    <input
-      value={title}
-      onChange={(evt) => { handleChange(id, evt.target.value); }}
-    />
-  );
-};
+class EditTitleComponent extends React.Component {
+  constructor(props) {
+    super(props);
 
-EditTitle.propTypes = {
+    this.state = {
+      edit: false,
+    };
+  }
+
+  changeMode = () => {
+    const newMode = !this.state.edit;
+
+    this.setState({
+      edit: newMode,
+    });
+  }
+
+  render() {
+    const { title, id, handleChange, classes } = this.props;
+    const { edit } = this.state;
+
+    if (edit) {
+      return (
+        <span>
+          <input
+            value={title}
+            onChange={(evt) => { handleChange(id, evt.target.value); }}
+          />
+          <IconButton color="inherit" component="span" onClick={this.changeMode}><DoneIcon /></IconButton>
+        </span>
+      );
+    }
+    return (
+      <span className={classes.title}>
+        <span>{ title }</span>
+        <IconButton color="inherit" component="span" onClick={this.changeMode}><EditIcon /></IconButton>
+      </span>
+    );
+  }
+}
+
+EditTitleComponent.propTypes = {
   title: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+const EditTitle = withStyles(styles)(EditTitleComponent);
 
 const FileTabsComponent = (props) => {
   const { classes, files, updateTitle, createFile, focusFile, deleteFile } = props;
