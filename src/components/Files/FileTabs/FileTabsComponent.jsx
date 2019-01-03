@@ -8,7 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import IconButton from '@material-ui/core/IconButton';
-import { Typography } from '@material-ui/core';
+import languages from './languages';
 
 const styles = theme => ({
   wrapper: {
@@ -23,18 +23,20 @@ const styles = theme => ({
   },
   chip: {
     borderRadius: '10px 10px 0px 0px',
-    height: '100%',
+    height: '85%',
+    color: 'rgba(0, 0, 0, 0.87)',
   },
   activeChip: {
-    backgroundColor: 'rgb(101, 115, 195)',
+    backgroundColor: 'rgb(206, 206, 206)',
   },
   title: {
     marginTop: '1em',
     marginBottom: '1em',
     fontSize: '1em',
   },
-  input: {
-    "-webkit-appearance": 'none',
+  bar: {
+    height: '15%',
+    width: '100%',
   },
 });
 
@@ -93,13 +95,13 @@ const FileTabsComponent = (props) => {
 
   const { focusIndex, ids } = files;
   return (
-    <Paper className={classes.wrapper}>
+    <div className={classes.wrapper}>
+      <div className={classes.bar} />
       {
         ids.map((id, index) => {
           const title = files[id].title;
           return (
             <Chip
-              color="primary"
               key={id}
               className={classNames(classes.chip, {
                 [classes.activeChip]: index === focusIndex,
@@ -112,11 +114,11 @@ const FileTabsComponent = (props) => {
       }
       <Chip
         icon={<AddIcon />}
-        label="Add File"
+        label="New File"
         onClick={createFile}
         className={classes.chip}
       />
-    </Paper>
+    </div>
   );
 };
 

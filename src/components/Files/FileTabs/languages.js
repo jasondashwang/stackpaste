@@ -1,0 +1,17 @@
+export default {
+  Java: 'java',
+  Python: 'python',
+  JavaScript: 'javascript',
+  TypeScript: 'typescript',
+  Ruby: 'ruby',
+  'C#': 'csharp',
+  PHP: 'php',
+  R: 'r',
+  'Objective C': 'objective-c',
+  Swift: 'swift',
+  SQL: 'sql',
+  HTML: 'html',
+  CSS: 'css',
+  XML: 'xml',
+  YAML: 'yaml',
+};

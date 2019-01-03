@@ -5,7 +5,7 @@ import MonacoEditor, { MonacoDiffEditor } from 'react-monaco-editor';
 
 const styles = theme => ({
   wrapper: {
-    height: 'calc(90% - 1px)',
+    height: 'calc(90% - 49px)',
     width: '100%',
     borderBottom: '1px solid #cfd0d2',
   },

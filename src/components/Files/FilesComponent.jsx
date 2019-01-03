@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CodeEditor from './CodeEditor/CodeEditorContainer';
 import FileTabs from './FileTabs/FileTabsContainer';
+import TitleBar from './TitleBar/TitleBarContainer';
 
 const styles = theme => ({
   wrapper: {
@@ -14,10 +15,12 @@ const styles = theme => ({
 
 const FilesComponent = (props) => {
   const { classes, files, version } = props;
+  const file = files[files.ids[files.focusIndex]];
   return (
     <div className={classes.wrapper}>
       <FileTabs files={files} />
-      <CodeEditor file={files[files.ids[files.focusIndex]]} />
+      <TitleBar file={file} />
+      <CodeEditor file={file} />
     </div>
   );
 };

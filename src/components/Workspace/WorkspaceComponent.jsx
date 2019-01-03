@@ -17,7 +17,7 @@ const styles = theme => ({
   },
   header: {
     textAlign: 'center',
-  }
+  },
 });
 
 const WorkspaceComponent = (props) => {

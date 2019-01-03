@@ -14,7 +14,7 @@ const initialState = {
   ids: ['0'],
   0: {
     _id: '0',
-    title: 'File Title',
+    title: 'Filename',
     body: '',
   },
   rootFiles: {},
@@ -80,7 +80,7 @@ function AppReducer(state = initialState, action) {
       newState.ids.push(newId);
       newState[newId] = {
         _id: newId,
-        title: 'File Title',
+        title: 'Filename',
         body: '',
       };
       newState.focusIndex = newState.ids.length - 1;
@@ -103,7 +103,7 @@ function AppReducer(state = initialState, action) {
           ids: ['0'],
           0: {
             _id: '0',
-            title: 'File Title',
+            title: 'Filename',
             body: '',
           },
           rootFiles: newState.rootFiles,
