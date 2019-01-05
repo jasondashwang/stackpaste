@@ -28,7 +28,7 @@ const WorkspaceComponent = (props) => {
       <div className={classes.toolbar} />
       <Files />
       <div className={classes.divider}>
-        <Typography variant="h6" color="inherit" noWrap className={classes.header}>Terminal Output</Typography>
+        <Typography variant="h6" color="inherit" noWrap className={classes.header}>Console</Typography>
       </div>
       <Terminal />
     </main>
