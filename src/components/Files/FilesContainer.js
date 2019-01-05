@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import FilesComponent from './FilesComponent';
+import { createFileActionCreator, focusFileActionCreator } from './ducks/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -8,7 +9,14 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    createFile: () => {
+      dispatch(createFileActionCreator());
+    },
+    focusFile: (index) => {
+      dispatch(focusFileActionCreator(index));
+    },
+  };
 };
 
 const FilesContainer = connect(mapStateToProps, mapDispatchToProps)(FilesComponent);

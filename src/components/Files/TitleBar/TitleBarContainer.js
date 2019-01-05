@@ -1,11 +1,14 @@
 import { connect } from 'react-redux';
 import TitleBarComponent from './TitleBarComponent';
-import { updateTitleActionCreator } from '../ducks/actions';
+import { updateTitleActionCreator, deleteFileActionCreator } from '../ducks/actions';
 
 const mapDispatchToProps = (dispatch) => {
   return {
     updateTitle: (id, title) => {
       dispatch(updateTitleActionCreator(id, title));
+    },
+    deleteFile: (index) => {
+      dispatch(deleteFileActionCreator(index));
     },
   };
 };
