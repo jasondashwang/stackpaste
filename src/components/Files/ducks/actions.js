@@ -28,10 +28,10 @@ export const updateBodyActionCreator = (id, body) => {
   };
 };
 
-export const deleteFileActionCreator = (index) => {
+export const deleteFileActionCreator = (deleteId) => {
   return {
     type: DELETE_FILE,
-    index,
+    deleteId,
   };
 };
 

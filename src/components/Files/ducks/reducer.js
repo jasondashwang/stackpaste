@@ -93,7 +93,7 @@ function AppReducer(state = initialState, action) {
     }
 
     case DELETE_FILE: {
-      const deleteId = newState.ids[action.index];
+      const { deleteId } = action;
       newState.ids = state.ids.filter(id => id !== deleteId);
       delete newState[deleteId];
 

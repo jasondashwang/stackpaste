@@ -14,6 +14,9 @@ const styles = theme => ({
     width: '100%',
     height: 'calc(63% - 34px)',
   },
+  scroller: {
+    'overflow-x': 'hidden',
+  },
 });
 
 class FilesComponent extends React.Component {
@@ -44,6 +47,9 @@ class FilesComponent extends React.Component {
             textColor="primary"
             variant="scrollable"
             scrollButtons="on"
+            classes={{
+              scroller: classes.scroller,
+            }}
           >
             {
               fileTitles.map((title, i) => <Tab key={i} label={title} />)

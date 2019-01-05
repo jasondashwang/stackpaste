@@ -7,8 +7,8 @@ const mapDispatchToProps = (dispatch) => {
     updateTitle: (id, title) => {
       dispatch(updateTitleActionCreator(id, title));
     },
-    deleteFile: (index) => {
-      dispatch(deleteFileActionCreator(index));
+    deleteFile: (deleteId) => {
+      dispatch(deleteFileActionCreator(deleteId));
     },
   };
 };
