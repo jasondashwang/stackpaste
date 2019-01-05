@@ -14,7 +14,7 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   divider: {
     height: '32px',
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#f5f5f5',
   },
   header: {
     textAlign: 'center',
