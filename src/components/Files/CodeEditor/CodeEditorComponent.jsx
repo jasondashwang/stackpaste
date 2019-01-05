@@ -5,7 +5,7 @@ import MonacoEditor, { MonacoDiffEditor } from 'react-monaco-editor';
 
 const styles = theme => ({
   wrapper: {
-    height: 'calc(90% - 49px)',
+    height: 'calc(90% - 67px)',
     width: '100%',
     borderBottom: '1px solid #cfd0d2',
   },
@@ -44,8 +44,8 @@ class CodeEditorComponent extends React.Component {
               <MonacoEditor
                 options={{
                   automaticLayout: true,
-                  value: 'Paste code snippet here'
                 }}
+                language={file.syntax}
                 value={file.body}
                 editorDidMount={editorDidMount}
                 editorWillMount={editorWillMount}
@@ -54,6 +54,7 @@ class CodeEditorComponent extends React.Component {
             )
             : (
               <MonacoDiffEditor
+                language={file.syntax}
                 options={{
                   automaticLayout: true,
                 }}

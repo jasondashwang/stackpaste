@@ -17,6 +17,9 @@ const styles = theme => ({
   scroller: {
     'overflow-x': 'hidden',
   },
+  bar: {
+    boxShadow: 'none',
+  },
 });
 
 class FilesComponent extends React.Component {
@@ -38,7 +41,7 @@ class FilesComponent extends React.Component {
         <AppBar
           position="static"
           color="default"
-
+          className={classes.bar}
         >
           <Tabs
             onChange={this.handleTabClick}

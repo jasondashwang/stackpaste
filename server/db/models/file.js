@@ -15,6 +15,10 @@ const FileSchema = new Schema({
     type: String,
     default: '',
   },
+  syntax: {
+    type: String,
+    default: 'text',
+  },
 });
 
 module.exports = mongoose.model('File', FileSchema);

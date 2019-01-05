@@ -6,6 +6,7 @@ import {
   FOCUS_FILE,
   DELETE_FILE,
   RECEIVE_ROOT_FILES,
+  UPDATE_FILE_SYNTAX,
 } from './actions';
 // what we plan on receiving from backend
 
@@ -16,6 +17,7 @@ const initialState = {
     _id: '0',
     title: 'Filename',
     body: '',
+    syntax: 'text',
   },
   rootFiles: {},
 };
@@ -71,6 +73,15 @@ function AppReducer(state = initialState, action) {
       return newState;
     }
 
+    case UPDATE_FILE_SYNTAX: {
+      const { id, syntax } = action;
+      newState[id] = {
+        ...state[id],
+      };
+      newState[id].syntax = syntax;
+      return newState;
+    }
+
     case CREATE_FILE: {
       newState.ids = [...state.ids];
       // Add temp id as just the current count and increase by 1
@@ -82,6 +93,7 @@ function AppReducer(state = initialState, action) {
         _id: newId,
         title: 'Filename',
         body: '',
+        syntax: 'text',
       };
       newState.focusIndex = newState.ids.length - 1;
       return newState;
@@ -105,6 +117,7 @@ function AppReducer(state = initialState, action) {
             _id: '0',
             title: 'Filename',
             body: '',
+            syntax: 'text',
           },
           rootFiles: newState.rootFiles,
         };

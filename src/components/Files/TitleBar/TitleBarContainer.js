@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TitleBarComponent from './TitleBarComponent';
-import { updateTitleActionCreator, deleteFileActionCreator } from '../ducks/actions';
+import { updateTitleActionCreator, deleteFileActionCreator, updateSyntaxActionCreator } from '../ducks/actions';
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -9,6 +9,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteFile: (deleteId) => {
       dispatch(deleteFileActionCreator(deleteId));
+    },
+    updateSyntax: (id, syntax) => {
+      dispatch(updateSyntaxActionCreator(id, syntax));
     },
   };
 };
