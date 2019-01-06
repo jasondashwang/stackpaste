@@ -68,6 +68,7 @@ router.post('/', (req, res, next) => {
   const newFiles = req.body.files.map(file => new File({
     title: file.title,
     body: file.body,
+    syntax: file.syntax,
   }));
   const newTerminal = new Terminal({
     body: req.body.terminal.body,
@@ -131,6 +132,7 @@ router.post('/:short', (req, res, next) => {
           title: file.title,
           body: file.body,
           rootId: file._id.length === 24 ? file._id : '',
+          syntax: file.syntax,
         }));
         newPaste.files = newFiles.map(file => file._id);
 

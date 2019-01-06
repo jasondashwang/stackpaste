@@ -7,13 +7,11 @@ const PasteSchema = new Schema({
   title: {
     type: String,
     trim: true,
-    lowercase: true,
     default: '',
   },
   description: {
     type: String,
     trim: true,
-    lowercase: true,
     default: '',
   },
   short: {
