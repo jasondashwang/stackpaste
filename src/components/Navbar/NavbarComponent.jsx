@@ -25,32 +25,24 @@ const styles = theme => ({
 
 
 class NavbarComponent extends React.Component {
-  save = () => {
-    this.props.createPaste();
-  }
-
-  update = () => {
-    this.props.createVersion();
-  }
-
   render() {
-    const { classes, short } = this.props;
+    const { classes, short, createPaste, createVersion, reset } = this.props;
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
           <Typography variant="headline" color="inherit" noWrap>
-            <Link to="/" className={classes.titleLink}>stackpaste</Link>
+            <Link to="/" onClick={reset} className={classes.titleLink}>stackpaste</Link>
           </Typography>
           {
             short ?
               (
-                <Button color="inherit" className={classes.button} onClick={this.update}>
+                <Button color="inherit" className={classes.button} onClick={createVersion}>
                   <CloudUploadIcon />	 &nbsp; Update
                 </Button>
               )
               :
               (
-                <Button color="inherit" className={classes.button} onClick={this.save}>
+                <Button color="inherit" className={classes.button} onClick={createPaste}>
                   <CloudUploadIcon />	 &nbsp; Save
                 </Button>
               )
@@ -67,6 +59,7 @@ NavbarComponent.propTypes = {
   createPaste: PropTypes.func.isRequired,
   createVersion: PropTypes.func.isRequired,
   short: PropTypes.string.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(NavbarComponent);

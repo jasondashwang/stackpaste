@@ -7,6 +7,7 @@ import {
   DELETE_FILE,
   RECEIVE_ROOT_FILES,
   UPDATE_FILE_SYNTAX,
+  RESET_FILES,
 } from './actions';
 // what we plan on receiving from backend
 
@@ -30,6 +31,12 @@ function AppReducer(state = initialState, action) {
   };
 
   switch (action.type) {
+    case RESET_FILES: {
+      return {
+        ...initialState,
+      };
+    }
+
     case RECEIVE_ROOT_FILES: {
       newState.rootFiles = {};
       action.rootFiles.forEach((rootFile) => {

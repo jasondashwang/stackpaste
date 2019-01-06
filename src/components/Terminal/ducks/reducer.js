@@ -2,6 +2,7 @@ import {
   UPDATE_TERMINAL_BODY,
   RECEIVE_TERMINAL,
   RECEIVE_ROOT_TERMINAL,
+  RESET_TERMINAL,
 } from './actions';
 
 const initialState = {
@@ -15,6 +16,12 @@ function AppReducer(state = initialState, action) {
   };
 
   switch (action.type) {
+    case RESET_TERMINAL: {
+      return {
+        ...initialState,
+      };
+    }
+
     case UPDATE_TERMINAL_BODY: {
       newState.body = action.body;
       return newState;

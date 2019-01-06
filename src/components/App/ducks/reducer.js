@@ -4,6 +4,7 @@ import {
   UPDATE_DESCRIPTION,
   DONE_SEARCHING,
   NOT_FOUND,
+  RESET_PASTE,
 } from './actions';
 
 const initialState = {
@@ -19,6 +20,13 @@ const initialState = {
 function AppReducer(state = initialState, action) {
 
   switch (action.type) {
+    case RESET_PASTE: {
+      return {
+        ...initialState,
+        searching: false,
+      };
+    }
+
     case NOT_FOUND: {
       return {
         ...state,

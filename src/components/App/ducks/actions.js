@@ -8,6 +8,13 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 export const DONE_SEARCHING = 'DONE_SEARCHING';
 export const NOT_FOUND = 'NOT_FOUND';
+export const RESET_PASTE = 'RESET_PASTE';
+
+export const resetPasteActionCreator = () => {
+  return {
+    type: RESET_PASTE,
+  };
+};
 
 export const notFoundActionCreator = () => {
   return {

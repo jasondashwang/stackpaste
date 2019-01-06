@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import AppComponent from './AppComponent';
 import { getPasteThunk } from './ducks/actions';
 
+
 const mapStateToProps = (state) => {
   return {
     _id: state.app._id,

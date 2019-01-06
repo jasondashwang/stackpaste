@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import NavbarComponent from './NavbarComponent';
-
-import { createPasteThunk, createVersionThunk } from '../App/ducks/actions';
+import { createPasteThunk, createVersionThunk, resetPasteActionCreator } from '../App/ducks/actions';
+import { resetFilesActionCreator } from '../Files/ducks/actions';
+import { resetTerminalActionCreator } from '../Terminal/ducks/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -16,6 +17,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     createVersion: () => {
       dispatch(createVersionThunk());
+    },
+    reset: () => {
+      dispatch(resetPasteActionCreator());
+      dispatch(resetFilesActionCreator());
+      dispatch(resetTerminalActionCreator());
     },
   };
 };

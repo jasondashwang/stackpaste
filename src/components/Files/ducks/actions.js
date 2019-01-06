@@ -6,6 +6,13 @@ export const UPDATE_FILE_BODY = 'UPDATE_FILE_BODY';
 export const RECEIVE_FILES = 'RECEIVE_FILES';
 export const RECEIVE_ROOT_FILES = 'RECEIVE_ROOT_FILES';
 export const UPDATE_FILE_SYNTAX = 'UPDATE_FILE_SYNTAX';
+export const RESET_FILES = 'RESET_FILES';
+
+export const resetFilesActionCreator = () => {
+  return {
+    type: RESET_FILES,
+  };
+};
 
 export const updateSyntaxActionCreator = (id, syntax) => {
   return {
