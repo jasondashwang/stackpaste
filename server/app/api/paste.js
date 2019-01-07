@@ -110,7 +110,7 @@ router.post('/:short', (req, res, next) => {
   const root = {};
   Paste.findOne({
     short: req.params.short,
-    version: 0,
+    version: req.body.version,
   })
     .populate('files')
     .populate('terminal')
@@ -134,6 +134,7 @@ router.post('/:short', (req, res, next) => {
           rootId: file._id.length === 24 ? file._id : '',
           syntax: file.syntax,
         }));
+
         newPaste.files = newFiles.map(file => file._id);
 
         newTerminal = new Terminal({

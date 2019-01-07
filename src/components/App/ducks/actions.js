@@ -92,6 +92,7 @@ const preparePayload = (state) => {
     description,
     files: newFiles,
     terminal,
+    version: app.version,
   };
 };
 
