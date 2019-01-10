@@ -54,13 +54,13 @@ export const getPasteThunk = (short, version = '') => {
     if (short || version) {
       axios.get(`/api/pastes/${short}/${version}`)
         .then(res => res.data)
-        .then((paste) => {
+        .then(({ root, paste }) => {
           dispatch(receivePasteActionCreator(paste));
           dispatch(receiveFilesActionCreator(paste.files));
           dispatch(receiveTerminalActionCreator(paste.terminal));
           if (paste.version > 0) {
-            dispatch(receiveRootFilesActionCreator(paste.root.files));
-            dispatch(receiveRootTerminalActionCreator(paste.root));
+            dispatch(receiveRootFilesActionCreator(root.files));
+            dispatch(receiveRootTerminalActionCreator(root.terminal));
           }
           dispatch(doneSearchingActionCreator());
         })

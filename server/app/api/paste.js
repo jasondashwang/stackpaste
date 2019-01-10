@@ -35,22 +35,38 @@ router.get('/:short/:version', (req, res, next) => {
       path: 'files',
       populate: {
         path: 'root',
+        model: 'File',
       },
     })
     .populate({
       path: 'terminal',
       populate: {
         path: 'root',
+        model: 'Terminal',
       },
     })
     .then((paste) => {
-      if (paste) {
-        res.json(paste);
-      } else {
+      if (!paste) {
         const err = new Error(`Paste not found with short ${req.params.short} and version ${req.params.version}`);
         err.status = 404;
         throw err;
       }
+
+      const terminal = paste.terminal.root;
+      paste.terminal.root = !paste.terminal.root ? null : paste.terminal.root._id;
+
+      const files = paste.files.map(file => file.root);
+      paste.files.forEach((file) => {
+        file.root = !file.root ? null : file.root._id;
+      });
+
+      res.json({
+        paste,
+        root: {
+          files,
+          terminal,
+        }
+      });
     })
     .catch((err) => {
       next(err);
