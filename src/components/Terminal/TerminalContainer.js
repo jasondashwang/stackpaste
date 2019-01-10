@@ -5,8 +5,8 @@ import { updateBodyActionCreator } from './ducks/actions';
 const mapStateToProps = (state) => {
   return {
     body: state.terminal.body,
-    version: state.app.version,
     rootBody: state.terminal.rootBody,
+    root: state.terminal.root,
   };
 };
 

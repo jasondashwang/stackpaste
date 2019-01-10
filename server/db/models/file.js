@@ -11,9 +11,9 @@ const FileSchema = new Schema({
   body: {
     type: String,
   },
-  rootId: {
-    type: String,
-    default: '',
+  root: {
+    type: Schema.Types.ObjectId,
+    ref: 'File',
   },
   syntax: {
     type: String,

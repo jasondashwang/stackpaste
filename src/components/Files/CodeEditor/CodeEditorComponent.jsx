@@ -32,14 +32,14 @@ class CodeEditorComponent extends React.Component {
   render() {
     const { classes, file, version, rootFiles } = this.props;
     let originalBody = '';
-    if (file.rootId && file.rootId !== '' && rootFiles[file.rootId]) {
-      originalBody = rootFiles[file.rootId].body;
+    if (file.root && file.root !== '' && rootFiles[file.root]) {
+      originalBody = rootFiles[file.root].body;
     }
 
     return (
       <div className={classes.wrapper}>
         {
-          version === 0
+          !file.root // If the file's root does not exist
             ? (
               <MonacoEditor
                 options={{

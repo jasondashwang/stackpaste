@@ -40,7 +40,7 @@ function AppReducer(state = initialState, action) {
     case RECEIVE_ROOT_FILES: {
       newState.rootFiles = {};
       action.rootFiles.forEach((rootFile) => {
-        newState.rootFiles[rootFile._id] = rootFile;
+        if (rootFile) newState.rootFiles[rootFile._id] = rootFile;
       });
       return newState;
     }

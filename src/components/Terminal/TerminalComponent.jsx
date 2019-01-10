@@ -16,12 +16,12 @@ const styles = theme => ({
 class TerminalComponent extends React.Component {
 
   render() {
-    const { classes, body, updateBody, version, rootBody } = this.props;
+    const { classes, body, updateBody, root, rootBody } = this.props;
 
     return (
       <div className={classes.wrapper}>
         {
-          version === 0 ? (
+          !root ? (
             <MonacoEditor
               value={body}
               onChange={updateBody}
@@ -34,6 +34,7 @@ class TerminalComponent extends React.Component {
             <DiffTerminal
               rootBody={rootBody}
               body={body}
+              updateBody={updateBody}
             />
           )
         }
@@ -47,7 +48,7 @@ TerminalComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   body: PropTypes.string.isRequired,
   updateBody: PropTypes.func.isRequired,
-  version: PropTypes.number.isRequired,
+  root: PropTypes.string.isRequired,
   rootBody: PropTypes.string.isRequired,
 };
 

@@ -92,7 +92,6 @@ const preparePayload = (state) => {
     description,
     files: newFiles,
     terminal,
-    version: app.version,
   };
 };
 
@@ -120,14 +119,12 @@ export const createVersionThunk = () => {
 
     axios.post(`/api/pastes/${short}`, preparePayload(state))
       .then(res => res.data)
-      .then((createdPaste) => {
+      .then(({ createdPaste, root }) => {
         dispatch(receivePasteActionCreator(createdPaste));
         dispatch(receiveFilesActionCreator(createdPaste.files));
         dispatch(receiveTerminalActionCreator(createdPaste.terminal));
-        if (createdPaste.version > 0) {
-          dispatch(receiveRootFilesActionCreator(createdPaste.root.files));
-          dispatch(receiveRootTerminalActionCreator(createdPaste.root));
-        }
+        dispatch(receiveRootFilesActionCreator(root.files));
+        dispatch(receiveRootTerminalActionCreator(root.terminal));
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
       })
       .catch((err) => {

@@ -23,9 +23,9 @@ export const receiveTerminalActionCreator = (terminal) => {
   };
 };
 
-export const receiveRootTerminalActionCreator = (root) => {
+export const receiveRootTerminalActionCreator = (terminal) => {
   return {
     type: RECEIVE_ROOT_TERMINAL,
-    root,
+    terminal,
   };
 };

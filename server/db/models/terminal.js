@@ -7,7 +7,10 @@ const TerminalSchema = new Schema({
     type: String,
     default: '',
   },
-
+  root: {
+    type: Schema.Types.ObjectId,
+    ref: 'Terminal',
+  },
 });
 
 module.exports = mongoose.model('Terminal', TerminalSchema);
