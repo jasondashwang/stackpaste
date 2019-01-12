@@ -13,13 +13,13 @@ const styles = theme => ({
     flexGrow: 1,
     width: '100%',
     height: 'calc(63% - 33px)',
-    borderBottom: '1px solid #2d333b',
   },
   scroller: {
     'overflow-x': 'hidden',
   },
   bar: {
     boxShadow: 'none',
+    height: '48px',
   },
   add: {
     color: '#0084ff',

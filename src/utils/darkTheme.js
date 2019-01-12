@@ -24,7 +24,7 @@ const theme = createMuiTheme({
       root: {
         color: '#cfd0d2',
         '&$focused': {
-          color: '#cfd0d2',
+          color: '#0084ff',
         },
       },
     },
@@ -45,7 +45,7 @@ const theme = createMuiTheme({
           borderBottomColor: '#cfd0d2',
         },
         '&:after': {
-          borderBottomColor: '#cfd0d2',
+          borderBottomColor: '#0084ff',
         },
       },
     },

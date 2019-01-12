@@ -6,7 +6,7 @@ import darkTheme from '../../../utils/darkMonacoTheme.json';
 
 const styles = theme => ({
   wrapper: {
-    height: 'calc(90% - 58px)',
+    height: 'calc(100% - 114px)',
     width: '100%',
   },
 });

@@ -47,7 +47,7 @@ const styles = theme => ({
       borderColor: '#cfd0d2',
     },
     '&$cssFocused $notchedOutline': {
-      borderColor: '#cfd0d2',
+      borderColor: '#0084ff',
     },
     '&:hover:not($cssDisabled):not($cssFocused):not($cssError) $notchedOutline': {
       borderColor: '#0084ff',

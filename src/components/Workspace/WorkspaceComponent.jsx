@@ -13,12 +13,13 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   divider: {
+    borderTop: '1px solid #2d333b',
     height: '32px',
     backgroundColor: '#20262e',
   },
   header: {
     textAlign: 'center',
-    color: '#ddd',
+    color: '#cfd0d2',
   },
 });
 
