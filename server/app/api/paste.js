@@ -14,7 +14,9 @@ router.get('/:short', (req, res, next) => {
     .populate('terminal')
     .then((paste) => {
       if (paste) {
-        res.json(paste);
+        res.json({
+          paste,
+        });
       } else {
         const err = new Error(`Paste not found with short: ${req.params.short}`);
         err.status = 404;
