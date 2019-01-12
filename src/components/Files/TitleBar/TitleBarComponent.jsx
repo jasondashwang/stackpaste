@@ -16,7 +16,8 @@ const styles = theme => ({
   wrapper: {
     height: '48px',
     padding: '8px',
-    border: '1px solid #cfd0d2',
+    border: '1px solid #2d333b',
+    backgroundColor: '#20262e',
   },
   textField: {
     height: '100%',
@@ -29,8 +30,42 @@ const styles = theme => ({
     minWidth: 120,
     float: 'right',
   },
+  selectRoot: {
+    color: '#cfd0d2',
+  },
+  selectIcon: {
+    color: '#cfd0d2',
+  },
   select: {
     padding: '14px 14px',
+    color: '#cfd0d2',
+  },
+  cssFocused: {},
+  cssOutlinedInput: {
+    color: '#cfd0d2',
+    '&$notchedOutline': {
+      borderColor: '#cfd0d2',
+    },
+    '&$cssFocused $notchedOutline': {
+      borderColor: '#cfd0d2',
+    },
+    '&:hover:not($cssDisabled):not($cssFocused):not($cssError) $notchedOutline': {
+      borderColor: '#0084ff',
+    },
+  },
+  notchedOutline: {
+  },
+  cssError: {
+
+  },
+  cssDisabled: {
+
+  },
+  button: {
+    color: '#cfd0d2',
+    '&&&&:hover': {
+      color: '#0084ff',
+    },
   },
 });
 
@@ -73,8 +108,17 @@ class TitleBarComponent extends React.Component {
           value={file.title}
           onChange={this.handleTitleChange}
           variant="outlined"
+          InputProps={{
+            classes: {
+              root: classes.cssOutlinedInput,
+              focused: classes.cssFocused,
+              notchedOutline: classes.notchedOutline,
+              error: classes.cssError,
+              disabled: classes.cssDisabled,
+            },
+          }}
         />
-        <IconButton aria-label="Delete" color="secondary" onClick={this.handleDelete} className={classes.button}>
+        <IconButton aria-label="Delete" onClick={this.handleDelete} className={classes.button}>
           <DeleteIcon />
         </IconButton>
         <FormControl variant="outlined" className={classes.formControl}>
@@ -90,13 +134,22 @@ class TitleBarComponent extends React.Component {
             value={file.syntax}
             onChange={this.handleSyntaxChange}
             classes={{
+              root: classes.selectRoot,
               select: classes.select,
+              icon: classes.selectIcon,
             }}
             input={(
               <OutlinedInput
                 labelWidth={this.state.labelWidth}
                 name="Syntax"
                 id="outlined-syntax-simple"
+                classes={{
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline,
+                  error: classes.cssError,
+                  disabled: classes.cssDisabled,
+                }}
               />
             )}
           >

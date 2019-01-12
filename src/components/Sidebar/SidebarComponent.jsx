@@ -15,6 +15,7 @@ const styles = theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    borderRight: '1px solid #2d333b',
   },
 
   toolbar: theme.mixins.toolbar,
@@ -47,6 +48,7 @@ class SidebarComponent extends React.Component {
               value={title}
               onChange={handleTitleChange}
               margin="normal"
+              color="inherit"
             />
           </ListItem>
           <ListItem>
@@ -60,6 +62,7 @@ class SidebarComponent extends React.Component {
               onChange={handleDescriptionChange}
               margin="normal"
               rows={4}
+              color="inherit"
             />
           </ListItem>
         </List>

@@ -2,21 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MonacoEditor, { MonacoDiffEditor } from 'react-monaco-editor';
+import darkTheme from '../../../utils/darkMonacoTheme.json';
 
 const styles = theme => ({
   wrapper: {
-    height: 'calc(90% - 67px)',
+    height: 'calc(90% - 58px)',
     width: '100%',
-    borderBottom: '1px solid #cfd0d2',
   },
 });
 
 const editorWillMount = (monaco) => {
-  // monaco.editor.defineTheme('myTheme', {
-  //   base: 'vs',
-  //   inherit: true,
-  // });
-  // monaco.editor.setTheme('myTheme');
+  monaco.editor.defineTheme('dark', darkTheme);
+  monaco.editor.setTheme('dark');
 };
 
 const editorDidMount = (editor, monaco) => {

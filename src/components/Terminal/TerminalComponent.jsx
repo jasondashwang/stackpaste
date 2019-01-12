@@ -9,7 +9,6 @@ const styles = theme => ({
   wrapper: {
     height: '37%',
     width: '100%',
-    borderTop: '1px solid #cfd0d2',
   },
 });
 

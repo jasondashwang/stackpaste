@@ -12,13 +12,14 @@ const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     boxShadow: 'none',
+    backgroundColor: '#1c2128',
   },
   button: {
     margin: theme.spacing.unit,
-    color: '#ffffff',
+    color: '#cfd0d2',
   },
   titleLink: {
-    color: '#ffffff',
+    color: '#cfd0d2',
     textDecoration: 'none',
   },
 });
@@ -30,7 +31,7 @@ class NavbarComponent extends React.Component {
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="headline" color="inherit" noWrap>
+          <Typography variant="h5" color="inherit" noWrap>
             <Link to="/" onClick={reset} className={classes.titleLink}>stackpaste</Link>
           </Typography>
           {

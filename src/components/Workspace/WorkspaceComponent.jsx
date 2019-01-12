@@ -8,16 +8,17 @@ import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
   main: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: '#20262e',
     maxWidth: 'calc(100% - 241px)',
   },
   toolbar: theme.mixins.toolbar,
   divider: {
     height: '32px',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#20262e',
   },
   header: {
     textAlign: 'center',
+    color: '#ddd',
   },
 });
 
@@ -28,7 +29,7 @@ const WorkspaceComponent = (props) => {
       <div className={classes.toolbar} />
       <Files />
       <div className={classes.divider}>
-        <Typography variant="h6" color="inherit" noWrap className={classes.header}>Console</Typography>
+        <Typography variant="h6" noWrap className={classes.header}>Console</Typography>
       </div>
       <Terminal />
     </main>

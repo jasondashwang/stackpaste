@@ -13,6 +13,7 @@ const styles = theme => ({
     position: 'fixed',
     width: '100%',
     height: '100%',
+    backgroundColor: '#20262e',
   },
   circular: {
     flexGrow: 1,

@@ -12,13 +12,17 @@ const styles = theme => ({
   wrapper: {
     flexGrow: 1,
     width: '100%',
-    height: 'calc(63% - 34px)',
+    height: 'calc(63% - 33px)',
+    borderBottom: '1px solid #2d333b',
   },
   scroller: {
     'overflow-x': 'hidden',
   },
   bar: {
     boxShadow: 'none',
+  },
+  add: {
+    color: '#0084ff',
   },
 });
 
@@ -40,14 +44,12 @@ class FilesComponent extends React.Component {
       <div className={classes.wrapper}>
         <AppBar
           position="static"
-          color="default"
+          color="primary"
           className={classes.bar}
         >
           <Tabs
             onChange={this.handleTabClick}
             value={files.focusIndex}
-            indicatorColor="primary"
-            textColor="primary"
             variant="scrollable"
             scrollButtons="on"
             classes={{
@@ -55,9 +57,9 @@ class FilesComponent extends React.Component {
             }}
           >
             {
-              fileTitles.map((title, i) => <Tab key={i} label={title} />)
+              fileTitles.map((title, i) => <Tab classes={classes.tab} key={i} label={title} />)
             }
-            <Tab icon={<AddIcon />} />
+            <Tab icon={<AddIcon className={classes.add} />} />
           </Tabs>
         </AppBar>
         <TitleBar file={file} />
