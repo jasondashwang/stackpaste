@@ -14,6 +14,7 @@ const styles = theme => ({
     flexShrink: 0,
   },
   drawerPaper: {
+    height: '100%',
     width: drawerWidth,
     borderRight: '1px solid #2d333b',
   },

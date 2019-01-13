@@ -7,8 +7,11 @@ import DiffTerminal from './DiffTerminalComponent';
 
 const styles = theme => ({
   wrapper: {
-    height: '37%',
+    height: 'calc(37% - 64px)',
     width: '100%',
+  },
+  editor: {
+    maxHeight: '100%',
   },
 });
 
@@ -26,8 +29,16 @@ class TerminalComponent extends React.Component {
               onChange={updateBody}
               options={{
                 automaticLayout: true,
+                wordWrap: 'on',
+                // Set this to false to not auto word wrap minified files
+                wordWrapMinified: true,
               }}
               language="text"
+              classes={{
+                container: {
+                  maxHeight: '100%',
+                }
+              }}
             />
           ) : (
             <DiffTerminal

@@ -10,6 +10,7 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: '#20262e',
     maxWidth: 'calc(100% - 241px)',
+    maxHeight: '100%',
   },
   toolbar: theme.mixins.toolbar,
   divider: {

@@ -11,6 +11,9 @@ function DiffTerminalComponent(props) {
       value={body}
       options={{
         automaticLayout: true,
+        wordWrap: 'on',
+        // Set this to false to not auto word wrap minified files
+        wordWrapMinified: true,
       }}
       language="text"
       onChange={updateBody}

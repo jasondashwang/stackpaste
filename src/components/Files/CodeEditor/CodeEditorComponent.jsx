@@ -41,6 +41,9 @@ class CodeEditorComponent extends React.Component {
               <MonacoEditor
                 options={{
                   automaticLayout: true,
+                  wordWrap: 'on',
+                  // Set this to false to not auto word wrap minified files
+                  wordWrapMinified: true,
                 }}
                 language={file.syntax}
                 value={file.body}
@@ -54,6 +57,9 @@ class CodeEditorComponent extends React.Component {
                 language={file.syntax}
                 options={{
                   automaticLayout: true,
+                  wordWrap: 'on',
+                  // Set this to false to not auto word wrap minified files
+                  wordWrapMinified: true,
                 }}
                 original={originalBody}
                 value={file.body}
