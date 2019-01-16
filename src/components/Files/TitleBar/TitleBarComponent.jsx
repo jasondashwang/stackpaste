@@ -40,27 +40,6 @@ const styles = theme => ({
     padding: '14px 14px',
     color: '#cfd0d2',
   },
-  cssFocused: {},
-  cssOutlinedInput: {
-    color: '#cfd0d2',
-    '&$notchedOutline': {
-      borderColor: '#cfd0d2',
-    },
-    '&$cssFocused $notchedOutline': {
-      borderColor: '#0084ff',
-    },
-    '&:hover:not($cssDisabled):not($cssFocused):not($cssError) $notchedOutline': {
-      borderColor: '#0084ff',
-    },
-  },
-  notchedOutline: {
-  },
-  cssError: {
-
-  },
-  cssDisabled: {
-
-  },
   button: {
     color: '#cfd0d2',
     '&&&&:hover': {
@@ -110,11 +89,6 @@ class TitleBarComponent extends React.Component {
           variant="outlined"
           InputProps={{
             classes: {
-              root: classes.cssOutlinedInput,
-              focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline,
-              error: classes.cssError,
-              disabled: classes.cssDisabled,
             },
           }}
         />
@@ -144,11 +118,6 @@ class TitleBarComponent extends React.Component {
                 name="Syntax"
                 id="outlined-syntax-simple"
                 classes={{
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                  error: classes.cssError,
-                  disabled: classes.cssDisabled,
                 }}
               />
             )}

@@ -5,10 +5,17 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
+    display: 'table',
     position: 'fixed',
     width: '100%',
     height: '100%',
+    backgroundColor: '#20262e',
+  },
+  message: {
+    display: 'table-cell',
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    color: '#cfd0d2',
   },
 });
 
@@ -17,8 +24,7 @@ function NotFoundComponent(props) {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h3" gutterBottom>
-        404
+      <Typography variant="h3" gutterBottom className={classes.message}>
         This page does not exist.
       </Typography>
     </div>

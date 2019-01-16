@@ -15,6 +15,27 @@ const theme = createMuiTheme({
     useNextVariants: true,
   },
   overrides: {
+    MuiListSubheader: {
+      root: {
+        color: '#cfd0d2',
+        fontSize: '1rem',
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        color: '#cfd0d2',
+      },
+    },
+    MuiTypography: {
+      body1: {
+        color: '#cfd0d2',
+      },
+    },
+    MuiList: {
+      root: {
+        color: '#cfd0d2',
+      },
+    },
     MuiDrawer: {
       paper: {
         backgroundColor: '#20262e',
@@ -23,10 +44,16 @@ const theme = createMuiTheme({
     MuiInputLabel: {
       root: {
         color: '#cfd0d2',
+        '&:hover:not($disabled):not($focused):not($error)': {
+          color: '#0084ff',
+        },
         '&$focused': {
           color: '#0084ff',
         },
       },
+      focused: {},
+      disabled: {},
+      error: {},
     },
     MuiInput: {
       root: {
@@ -51,13 +78,22 @@ const theme = createMuiTheme({
     },
     MuiOutlinedInput: {
       root: {
-
+        color: '#cfd0d2',
         backgroundColor: '#1c2128',
         '& $notchedOutline': {
 
           borderColor: '#cfd0d2',
         },
+        '&$focused $notchedOutline': {
+          borderColor: '#0084ff',
+        },
+        '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
+          borderColor: '#0084ff',
+        },
       },
+      focused: {},
+      disabled: {},
+      error: {},
     },
     MuiTabs: {
       root: {
@@ -68,3 +104,10 @@ const theme = createMuiTheme({
 });
 
 export default theme;
+
+// '&$cssFocused $notchedOutline': {
+//   borderColor: '#0084ff',
+// },
+// '&:hover:not($cssDisabled):not($cssFocused):not($cssError) $notchedOutline': {
+//   borderColor: '#0084ff',
+// },
