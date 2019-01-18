@@ -1,6 +1,7 @@
 
 const path = require('path');
 const express = require('express');
+const logger = require('heroku-logger');
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.get('/*', (req, res) => {
 // 404 middleware
 app.use((req, res, next) => {
   if (path.extname(req.path).length) {
-    const err = new Error('Not found');
+    const err = new Error(`${req.path} was not found`);
     err.status = 404;
     next(err);
   } else {
@@ -30,8 +31,7 @@ app.use((req, res, next) => {
 // Error handling endware
 app.use((err, req, res, next) => {
   if (err.status !== 404) {
-    console.error(err.message);
-    console.error(err.stack);
+    logger.error('Server error!', err);
   }
   res.status(err.status || 500).send(err.message || 'Internal server error.');
 });

@@ -200,62 +200,6 @@ router.post('/:short', (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-
-  // Paste.findOne({
-  //   short: req.params.short,
-  //   version: req.body.version,
-  // })
-  //   .populate('files')
-  //   .populate('terminal')
-  //   .then((paste) => {
-  //     if (paste) {
-  //       root.files = paste.files;
-  //       root.terminal = paste.terminal;
-  //       const version = paste.numOfChildren + 1;
-  //       paste.numOfChildren += 1;
-
-  //       const newPaste = new Paste({
-  //         title: req.body.title,
-  //         description: req.body.description,
-  //         short: req.params.short,
-  //         version,
-  //         root: mongoose.Types.ObjectId(paste._id),
-  //       });
-  //       newFiles = req.body.files.map(file => new File({
-  //         title: file.title,
-  //         body: file.body,
-  //         rootId: file._id.length === 24 ? file._id : '',
-  //         syntax: file.syntax,
-  //       }));
-
-  //       newPaste.files = newFiles.map(file => file._id);
-
-  //       newTerminal = new Terminal({
-  //         body: req.body.terminal.body,
-  //       });
-  //       newPaste.terminal = newTerminal._id;
-
-  //       return Promise.all([paste.save(), newPaste.save()]);
-  //     }
-
-  //   })
-  //   .then((createdPastes) => {
-  //     // allows fields to be mutable
-  //     createdPaste = createdPastes[1].toObject();
-  //     return Promise.all(newFiles.map(file => file.save()));
-  //   })
-  //   .then((files) => {
-  //     createdPaste.files = files;
-  //     return newTerminal.save();
-  //   })
-  //   .then((terminal) => {
-  //     createdPaste.terminal = terminal;
-  //     createdPaste.root = root;
-  //     res.status(201).json(createdPaste);
-  //   })
-  //   .catch((err) => {
-  //     next(err);
-  //   });
 });
 
 module.exports = router;

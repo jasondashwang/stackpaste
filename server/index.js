@@ -1,5 +1,4 @@
-
-const chalk = require('chalk');
+const logger = require('heroku-logger');
 const http = require('http');
 const httpApp = require('./app');
 
@@ -9,5 +8,5 @@ require('./db');
 const httpPORT = process.env.PORT || 8080;
 
 http.createServer(httpApp).listen(httpPORT, () => {
-  console.log(chalk.blue(`Server started at http://localhost:${httpPORT}`));
+  logger.info('Starting server', { port: httpPORT });
 });

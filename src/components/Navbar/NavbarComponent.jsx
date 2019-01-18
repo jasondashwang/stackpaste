@@ -22,37 +22,57 @@ const styles = theme => ({
     color: '#cfd0d2',
     textDecoration: 'none',
   },
+  buttonRoot: {
+    '&:hover': {
+      color: '#0084ff',
+    },
+    '&:focus': {
+      color: '#0084ff',
+    },
+  },
 });
 
 
-class NavbarComponent extends React.Component {
-  render() {
-    const { classes, short, createPaste, createVersion, reset } = this.props;
-    return (
-      <AppBar position="absolute" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h5" color="inherit" noWrap>
-            <Link to="/" onClick={reset} className={classes.titleLink}>stackpaste</Link>
-          </Typography>
-          {
-            short ?
-              (
-                <Button color="inherit" className={classes.button} onClick={createVersion}>
-                  <CloudUploadIcon />	 &nbsp; Update
-                </Button>
-              )
-              :
-              (
-                <Button color="inherit" className={classes.button} onClick={createPaste}>
-                  <CloudUploadIcon />	 &nbsp; Save
-                </Button>
-              )
-          }
+function NavbarComponent(props) {
+  const { classes, short, createPaste, createVersion, reset } = props;
+  return (
+    <AppBar position="absolute" className={classes.appBar}>
+      <Toolbar>
+        <Typography variant="h5" color="inherit" noWrap>
+          <Link to="/" onClick={reset} className={classes.titleLink}>stackpaste</Link>
+        </Typography>
+        {
+          short ? (
+            <Button
+              color="inherit"
+              className={classes.button}
+              onClick={createVersion}
+              classes={{
+                root: classes.buttonRoot,
+              }}
+            >
+              <CloudUploadIcon />
+              &nbsp; Update
+            </Button>
+          )
+            : (
+              <Button
+                color="inherit"
+                className={classes.button}
+                onClick={createPaste}
+                classes={{
+                  root: classes.buttonRoot,
+                }}
+              >
+                <CloudUploadIcon />
+                &nbsp; Save
+              </Button>
+            )
+        }
 
-        </Toolbar>
-      </AppBar>
-    );
-  }
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 NavbarComponent.propTypes = {
