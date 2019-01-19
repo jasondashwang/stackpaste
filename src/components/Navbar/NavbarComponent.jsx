@@ -37,7 +37,7 @@ class NavbarComponent extends React.Component {
     const { createPaste, enqueueSnackbar } = this.props;
     createPaste()
       .catch((err) => {
-        enqueueSnackbar('Error occurred while saving. Please try again shortly.', { variant: 'error' });
+        enqueueSnackbar('An error occurred while saving. Please try again later.', { variant: 'error' });
       });
   }
 
@@ -45,7 +45,7 @@ class NavbarComponent extends React.Component {
     const { createVersion, enqueueSnackbar } = this.props;
     createVersion()
       .catch((err) => {
-        enqueueSnackbar('Error occurred while updating. Please try again shortly.', { variant: 'error' });
+        enqueueSnackbar('An error occurred while updating. Please try again later.', { variant: 'error' });
       });
   }
 

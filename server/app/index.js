@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 // Error handling endware
 app.use((err, req, res, next) => {
   if (err.status !== 404) {
-    logger.error('Server error!', err);
+    logger.error(err.message, err);
   }
   res.status(err.status || 500).send(err.message || 'Internal server error.');
 });

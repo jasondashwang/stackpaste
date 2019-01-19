@@ -1,11 +1,16 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const Paste = require('../../db/models/paste');
-const File = require('../../db/models/file');
-const Terminal = require('../../db/models/terminal');
-const Short = require('../../db/models/short');
+const Paste = require('../../../db/models/paste');
+const File = require('../../../db/models/file');
+const Terminal = require('../../../db/models/terminal');
+const Short = require('../../../db/models/short');
+const validatePayload = require('./validate');
 
+/*
+Route only accepts :short as a request parameter
+*/
 router.get('/:short', (req, res, next) => {
+  // Find a Paste with the short parameter that is always version 0
   Paste.findOne({
     short: req.params.short,
     version: 0,
@@ -28,6 +33,9 @@ router.get('/:short', (req, res, next) => {
     });
 });
 
+/*
+Route only accepts :short, and :version as request parameters
+*/
 router.get('/:short/:version', (req, res, next) => {
   Paste.findOne({
     short: req.params.short,
@@ -55,19 +63,22 @@ router.get('/:short/:version', (req, res, next) => {
       }
 
       const terminal = paste.terminal.root;
+      // Reassign the root of the terminal from being the object to just its _id
       paste.terminal.root = !paste.terminal.root ? null : paste.terminal.root._id;
 
       const files = paste.files.map(file => file.root);
+      // Reassign the root of each files from being the object to just its _id
       paste.files.forEach((file) => {
         file.root = !file.root ? null : file.root._id;
       });
 
+      // Put root objects into its own payload object
       res.json({
         paste,
         root: {
           files,
           terminal,
-        }
+        },
       });
     })
     .catch((err) => {
@@ -84,7 +95,7 @@ router.get('/:short/:version', (req, res, next) => {
     description
   }
 */
-router.post('/', (req, res, next) => {
+router.post('/', validatePayload, (req, res, next) => {
   let createdPaste;
   let newFiles;
   let newTerminal;
@@ -132,7 +143,7 @@ router.post('/', (req, res, next) => {
     });
 });
 
-router.post('/:short', (req, res, next) => {
+router.post('/:short', validatePayload, (req, res, next) => {
   let newFiles;
   let createdPaste;
   let newTerminal;

@@ -60,7 +60,7 @@ export const getPasteThunk = (short, version = '') => {
           dispatch(receiveTerminalActionCreator(paste.terminal));
           if (paste.version > 0) {
             dispatch(receiveRootFilesActionCreator(root.files));
-            dispatch(receiveRootTerminalActionCreator(root.terminal));
+            if (root.terminal) dispatch(receiveRootTerminalActionCreator(root.terminal));
           }
           dispatch(doneSearchingActionCreator());
         })
@@ -84,14 +84,23 @@ const preparePayload = (state) => {
 
   const newFiles = [];
   files.ids.forEach((id) => {
-    newFiles.push(files[id]);
+    const file = files[id];
+    newFiles.push({
+      _id: file._id,
+      title: file.title,
+      body: file.body,
+      syntax: file.syntax,
+    });
   });
 
   return {
     title,
     description,
     files: newFiles,
-    terminal,
+    terminal: {
+      _id: terminal.body,
+      body: terminal.body,
+    },
   };
 };
 
@@ -121,7 +130,7 @@ export const createVersionThunk = () => {
         dispatch(receiveFilesActionCreator(createdPaste.files));
         dispatch(receiveTerminalActionCreator(createdPaste.terminal));
         dispatch(receiveRootFilesActionCreator(root.files));
-        dispatch(receiveRootTerminalActionCreator(root.terminal));
+        if (root.terminal) dispatch(receiveRootTerminalActionCreator(root.terminal));
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
       });
   };
