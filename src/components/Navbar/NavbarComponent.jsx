@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { withSnackbar } from 'notistack';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -26,53 +27,69 @@ const styles = theme => ({
     '&:hover': {
       color: '#0084ff',
     },
-    '&:focus': {
-      color: '#0084ff',
-    },
   },
 });
 
 
-function NavbarComponent(props) {
-  const { classes, short, createPaste, createVersion, reset } = props;
-  return (
-    <AppBar position="absolute" className={classes.appBar}>
-      <Toolbar>
-        <Typography variant="h5" color="inherit" noWrap>
-          <Link to="/" onClick={reset} className={classes.titleLink}>stackpaste &nbsp;</Link>
-        </Typography>
-        {
-          short ? (
-            <Button
-              color="inherit"
-              className={classes.button}
-              onClick={createVersion}
-              classes={{
-                root: classes.buttonRoot,
-              }}
-            >
-              <CloudUploadIcon />
-              &nbsp; Update
-            </Button>
-          )
-            : (
+class NavbarComponent extends React.Component {
+
+  handleSave = () => {
+    const { createPaste, enqueueSnackbar } = this.props;
+    createPaste()
+      .catch((err) => {
+        enqueueSnackbar('Error occurred while saving. Please try again shortly.', { variant: 'error' });
+      });
+  }
+
+  handleUpdate = () => {
+    const { createVersion, enqueueSnackbar } = this.props;
+    createVersion()
+      .catch((err) => {
+        enqueueSnackbar('Error occurred while updating. Please try again shortly.', { variant: 'error' });
+      });
+  }
+
+  render() {
+    const { classes, short, reset } = this.props;
+    return (
+      <AppBar position="absolute" className={classes.appBar}>
+        <Toolbar>
+          <Typography variant="h5" color="inherit" noWrap>
+            <Link to="/" onClick={reset} className={classes.titleLink}>stackpaste</Link>
+          </Typography>
+          {
+            short ? (
               <Button
                 color="inherit"
                 className={classes.button}
-                onClick={createPaste}
+                onClick={this.handleUpdate}
                 classes={{
                   root: classes.buttonRoot,
                 }}
               >
                 <CloudUploadIcon />
-                &nbsp; Save
+                &nbsp; Update
               </Button>
             )
-        }
+              : (
+                <Button
+                  color="inherit"
+                  className={classes.button}
+                  onClick={this.handleSave}
+                  classes={{
+                    root: classes.buttonRoot,
+                  }}
+                >
+                  <CloudUploadIcon />
+                  &nbsp; Save
+                </Button>
+              )
+          }
 
-      </Toolbar>
-    </AppBar>
-  );
+        </Toolbar>
+      </AppBar>
+    );
+  }
 }
 
 NavbarComponent.propTypes = {
@@ -81,6 +98,7 @@ NavbarComponent.propTypes = {
   createVersion: PropTypes.func.isRequired,
   short: PropTypes.string.isRequired,
   reset: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(NavbarComponent);
+export default withStyles(styles)(withSnackbar(NavbarComponent));

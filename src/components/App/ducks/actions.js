@@ -97,16 +97,13 @@ const preparePayload = (state) => {
 
 export const createPasteThunk = () => {
   return (dispatch, getState) => {
-    axios.post('/api/pastes', preparePayload(getState()))
+    return axios.post('/api/pastes', preparePayload(getState()))
       .then(res => res.data)
       .then((createdPaste) => {
         dispatch(receivePasteActionCreator(createdPaste));
         dispatch(receiveFilesActionCreator(createdPaste.files));
         dispatch(receiveTerminalActionCreator(createdPaste.terminal));
         history.push(`/${createdPaste.short}`);
-      })
-      .catch((err) => {
-        console.error(err);
       });
   };
 };
@@ -117,7 +114,7 @@ export const createVersionThunk = () => {
     const state = getState();
     const { short } = state.app;
 
-    axios.post(`/api/pastes/${short}`, preparePayload(state))
+    return axios.post(`/api/pastes/${short}`, preparePayload(state))
       .then(res => res.data)
       .then(({ createdPaste, root }) => {
         dispatch(receivePasteActionCreator(createdPaste));
@@ -126,9 +123,6 @@ export const createVersionThunk = () => {
         dispatch(receiveRootFilesActionCreator(root.files));
         dispatch(receiveRootTerminalActionCreator(root.terminal));
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
-      })
-      .catch((err) => {
-        console.error(err);
       });
   };
 };

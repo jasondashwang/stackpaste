@@ -10,13 +10,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     createPaste: () => {
-      dispatch(createPasteThunk());
+      return dispatch(createPasteThunk());
     },
     createVersion: () => {
-      dispatch(createVersionThunk());
+      return dispatch(createVersionThunk());
     },
     reset: () => {
       dispatch(resetPasteActionCreator());

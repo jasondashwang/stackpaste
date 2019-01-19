@@ -24,6 +24,7 @@ function AppReducer(state = initialState, action) {
       return {
         ...initialState,
         searching: false,
+        notifications: [],
       };
     }
 
