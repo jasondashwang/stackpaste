@@ -4,11 +4,12 @@ const logger = require('heroku-logger');
 mongoose.Promise = require('bluebird');
 
 const localURI = process.env.DATABASE_URI || 'mongodb://localhost:27017/stackpaste';
+const dbName = process.env.NODE_ENV === 'production' ? 'stackpaste-prod' : 'stackpaste-dev';
 
 const connection = mongoose.connect(`${localURI}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
-  dbName: 'stackpaste-dev',
+  dbName,
 });
 
 connection
