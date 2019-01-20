@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     _id: state.app._id,
     searching: state.app.searching,
     notFound: state.app.notFound,
+    serverError: state.app.serverError,
   };
 };
 

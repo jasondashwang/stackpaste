@@ -8,11 +8,18 @@ export const UPDATE_TITLE = 'UPDATE_TITLE';
 export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 export const DONE_SEARCHING = 'DONE_SEARCHING';
 export const NOT_FOUND = 'NOT_FOUND';
+export const SERVER_ERROR = 'SERVER_ERROR';
 export const RESET_PASTE = 'RESET_PASTE';
 
 export const resetPasteActionCreator = () => {
   return {
     type: RESET_PASTE,
+  };
+};
+
+export const serverErrorActionCreator = () => {
+  return {
+    type: SERVER_ERROR,
   };
 };
 
@@ -69,6 +76,8 @@ export const getPasteThunk = (short, version = '') => {
             dispatch(doneSearchingActionCreator());
             if (err.response.status === 404) {
               dispatch(notFoundActionCreator());
+            } else {
+              dispatch(serverErrorActionCreator());
             }
           }
         });

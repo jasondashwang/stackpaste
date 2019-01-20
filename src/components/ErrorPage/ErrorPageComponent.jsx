@@ -19,21 +19,22 @@ const styles = theme => ({
   },
 });
 
-function NotFoundComponent(props) {
-  const { classes } = props;
+function ErrorPageComponent(props) {
+  const { classes, message } = props;
 
   return (
     <div className={classes.root}>
       <Typography variant="h3" gutterBottom className={classes.message}>
-        This page does not exist.
+        { message }
       </Typography>
     </div>
   );
 }
 
-NotFoundComponent.propTypes = {
+ErrorPageComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
 
-export default withStyles(styles)(NotFoundComponent);
+export default withStyles(styles)(ErrorPageComponent);

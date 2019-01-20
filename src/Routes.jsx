@@ -6,7 +6,7 @@ import theme from './utils/darkTheme';
 import history from './history';
 
 import AppContainer from './components/App/AppContainer';
-import NotFound from './components/NotFound/NotFoundComponent.jsx';
+import ErrorPage from './components/ErrorPage/ErrorPageComponent';
 
 function Routes() {
   return (
@@ -17,7 +17,7 @@ function Routes() {
             <Route exact path="/" component={AppContainer} />
             <Route exact path="/:short" component={AppContainer} />
             <Route exact path="/:short/:version" component={AppContainer} />
-            <Route component={NotFound} />
+            <Route render={props => <ErrorPage {...props} message="This page does not exist." />} />
           </Switch>
         </Router>
       </SnackbarProvider>

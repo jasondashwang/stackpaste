@@ -5,6 +5,7 @@ import {
   DONE_SEARCHING,
   NOT_FOUND,
   RESET_PASTE,
+  SERVER_ERROR,
 } from './actions';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   description: '',
   searching: true,
   notFound: false,
+  serverError: false,
 };
 
 function AppReducer(state = initialState, action) {
@@ -32,6 +34,13 @@ function AppReducer(state = initialState, action) {
       return {
         ...state,
         notFound: true,
+      };
+    }
+
+    case SERVER_ERROR: {
+      return {
+        ...state,
+        serverError: true,
       };
     }
 

@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Navbar from '../Navbar/NavbarContainer';
 import Workspace from '../Workspace/WorkspaceContainer';
 import Sidebar from '../Sidebar/SidebarContainer';
-import NotFound from '../NotFound/NotFoundComponent';
+import ErrorPage from '../ErrorPage/ErrorPageComponent';
 
 const styles = theme => ({
   root: {
@@ -32,29 +32,33 @@ class AppComponent extends React.Component {
   }
 
   render() {
-    const { classes, searching, notFound } = this.props;
+    const { classes, searching, notFound, serverError } = this.props;
+
+    if (serverError) {
+      return <ErrorPage message="Something funky is going on with our servers. Please try again later." />;
+    }
+
+    if (notFound) {
+      return <ErrorPage message="This page does not exist." />;
+    }
 
     return (
-      notFound ? (
-        <NotFound />
-      ) : (
-        <div className={classes.root}>
-          <Navbar />
-          {
-            searching ? (
-              <div className={classes.circular}>
-                <div className={classes.toolbar} />
-                <CircularProgress className={classes.progress} size={100} thickness={6} />
-              </div>
-            ) : (
-              <div className={classes.root}>
-                <Sidebar />
-                <Workspace />
-              </div>
-            )
-          }
-        </div>
-      )
+      <div className={classes.root}>
+        <Navbar />
+        {
+          searching ? (
+            <div className={classes.circular}>
+              <div className={classes.toolbar} />
+              <CircularProgress className={classes.progress} size={100} thickness={6} />
+            </div>
+          ) : (
+            <div className={classes.root}>
+              <Sidebar />
+              <Workspace />
+            </div>
+          )
+        }
+      </div>
     );
   }
 }
@@ -64,6 +68,7 @@ AppComponent.propTypes = {
   getPaste: PropTypes.func.isRequired,
   searching: PropTypes.bool.isRequired,
   notFound: PropTypes.bool.isRequired,
+  serverError: PropTypes.bool.isRequired,
 };
 
 
