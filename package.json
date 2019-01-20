@@ -5,10 +5,10 @@
     "node": "10.x"
   },
   "scripts": {
-    "heroku-postbuild": "webpack -p",
+    "heroku-postbuild": "webpack -p --config webpack.config.prod.js",
     "build": "webpack --mode production",
     "b-start": "nodemon ./server/index.js",
-    "dev-start": "webpack -w --mode=development & nodemon ./server/index.js",
+    "dev-start": "webpack -w --mode=development --config webpack.config.dev.js & nodemon ./server/index.js",
     "start": "node ./server/index.js"
   },
   "dependencies": {

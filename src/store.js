@@ -4,8 +4,16 @@ import loggerMiddleware from 'redux-logger';
 
 import rootReducer from './reducers';
 
-const middleware = [thunkMiddleware, loggerMiddleware];
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let middleware;
+let composeEnhancer;
+if (process.env.NODE_ENV === 'development') {
+  middleware = [thunkMiddleware, loggerMiddleware];
+  composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+} else {
+  middleware = [thunkMiddleware];
+  composeEnhancer = compose;
+}
+
 
 export default function configureStore() {
   return createStore(

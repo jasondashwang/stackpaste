@@ -55,7 +55,10 @@ class NavbarComponent extends React.Component {
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h5" color="inherit" noWrap>
-            <Link to="/" onClick={reset} className={classes.titleLink}>stackpaste</Link>
+            <Link to="/" onClick={reset} className={classes.titleLink}>
+              stackpaste
+              &nbsp; {process.env.NODE_ENV === 'development' ? process.env.NODE_ENV : '' }
+            </Link>
           </Typography>
           {
             short ? (
