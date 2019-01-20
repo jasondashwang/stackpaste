@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const styles = theme => ({
   appBar: {
@@ -32,6 +33,24 @@ const styles = theme => ({
 
 
 class NavbarComponent extends React.Component {
+  state = {
+    inProgress: false,
+    completed: 0,
+  }
+
+  progress = () => {
+    const { completed } = this.state;
+    if (completed === 100) {
+      clearInterval(this.timer);
+      setTimeout(() => {
+        this.setState({ inProgress: false });
+      }, 500);
+    } else {
+      const diff = Math.random() * 10;
+      this.setState({ completed: Math.min(completed + diff, 100) });
+    }
+  }
+
   validatePayload = () => {
     const { files } = this.props;
     let errorMessage = '';
@@ -49,7 +68,17 @@ class NavbarComponent extends React.Component {
     const message = this.validatePayload();
     // if messsage is empty string
     if (!message) {
+      this.setState({
+        inProgress: true,
+        completed: 0,
+      });
+      this.timer = setInterval(this.progress, 500);
       createPaste()
+        .then(() => {
+          this.setState({
+            completed: 100,
+          });
+        })
         .catch((err) => {
           enqueueSnackbar('An error occurred while saving. Please try again later.', { variant: 'error' });
         });
@@ -63,7 +92,17 @@ class NavbarComponent extends React.Component {
     const message = this.validatePayload();
     // if messsage is empty string
     if (!message) {
+      this.setState({
+        inProgress: true,
+        completed: 0,
+      });
+      this.timer = setInterval(this.progress, 500);
       createVersion()
+        .then(() => {
+          this.setState({
+            completed: 100,
+          });
+        })
         .catch((err) => {
           enqueueSnackbar('An error occurred while updating. Please try again later.', { variant: 'error' });
         });
@@ -74,6 +113,7 @@ class NavbarComponent extends React.Component {
 
   render() {
     const { classes, short, reset } = this.props;
+    const { inProgress, completed } = this.state;
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
@@ -113,6 +153,7 @@ class NavbarComponent extends React.Component {
           }
 
         </Toolbar>
+        { inProgress ? <LinearProgress variant="determinate" value={completed} color="secondary" /> : null }
       </AppBar>
     );
   }
