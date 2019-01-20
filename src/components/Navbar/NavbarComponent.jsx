@@ -32,21 +32,44 @@ const styles = theme => ({
 
 
 class NavbarComponent extends React.Component {
+  validatePayload = () => {
+    const { files } = this.props;
+    let errorMessage = '';
+    files.ids.forEach((id) => {
+      const file = files[id];
+      if (file.title.length === 0) {
+        errorMessage = 'File titles are required. Please fix above before trying again.';
+      }
+    });
+    return errorMessage;
+  }
 
   handleSave = () => {
     const { createPaste, enqueueSnackbar } = this.props;
-    createPaste()
-      .catch((err) => {
-        enqueueSnackbar('An error occurred while saving. Please try again later.', { variant: 'error' });
-      });
+    const message = this.validatePayload();
+    // if messsage is empty string
+    if (!message) {
+      createPaste()
+        .catch((err) => {
+          enqueueSnackbar('An error occurred while saving. Please try again later.', { variant: 'error' });
+        });
+    } else {
+      enqueueSnackbar(message, { variant: 'error' });
+    }
   }
 
   handleUpdate = () => {
     const { createVersion, enqueueSnackbar } = this.props;
-    createVersion()
-      .catch((err) => {
-        enqueueSnackbar('An error occurred while updating. Please try again later.', { variant: 'error' });
-      });
+    const message = this.validatePayload();
+    // if messsage is empty string
+    if (!message) {
+      createVersion()
+        .catch((err) => {
+          enqueueSnackbar('An error occurred while updating. Please try again later.', { variant: 'error' });
+        });
+    } else {
+      enqueueSnackbar(message, { variant: 'error' });
+    }
   }
 
   render() {
@@ -97,6 +120,7 @@ class NavbarComponent extends React.Component {
 
 NavbarComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  files: PropTypes.object.isRequired,
   createPaste: PropTypes.func.isRequired,
   createVersion: PropTypes.func.isRequired,
   short: PropTypes.string.isRequired,

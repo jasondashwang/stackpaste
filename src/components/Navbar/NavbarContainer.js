@@ -7,6 +7,7 @@ import { resetTerminalActionCreator } from '../Terminal/ducks/actions';
 const mapStateToProps = (state) => {
   return {
     short: state.app.short,
+    files: state.files,
   };
 };
 
