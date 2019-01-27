@@ -6,11 +6,17 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Badge from '@material-ui/core/Badge';
 import { Link } from 'react-router-dom';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CodeIcon from '@material-ui/icons/Code';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const styles = theme => ({
+  margin: {
+    margin: theme.spacing.unit * 2,
+    color: ''
+  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     boxShadow: 'none',
@@ -28,6 +34,12 @@ const styles = theme => ({
     '&:hover': {
       color: '#0084ff',
     },
+  },
+  logo: {
+    height: '45px',
+    width: '45px',
+    verticalAlign: 'middle',
+    color: '#0084ff',
   },
 });
 
@@ -117,10 +129,10 @@ class NavbarComponent extends React.Component {
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h5" color="inherit" noWrap>
+          <Typography variant="h6" color="inherit" noWrap>
             <Link to="/" onClick={reset} className={classes.titleLink}>
-              stackpaste
-              &nbsp; {process.env.NODE_ENV === 'development' ? process.env.NODE_ENV : '' }
+              <CodeIcon className={classes.logo} />
+              &nbsp;
             </Link>
           </Typography>
           {
