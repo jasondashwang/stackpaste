@@ -4,12 +4,11 @@ import { receiveFilesActionCreator, receiveRootFilesActionCreator } from '../../
 import { receiveTerminalActionCreator, receiveRootTerminalActionCreator } from '../../Terminal/ducks/actions';
 
 export const RECEIVE_PASTE = 'RECEIVE_PASTE';
-export const UPDATE_TITLE = 'UPDATE_TITLE';
-export const UPDATE_DESCRIPTION = 'UPDATE_DESCRIPTION';
 export const DONE_SEARCHING = 'DONE_SEARCHING';
 export const NOT_FOUND = 'NOT_FOUND';
 export const SERVER_ERROR = 'SERVER_ERROR';
 export const RESET_PASTE = 'RESET_PASTE';
+export const TOGGLE_TUTORIAL = 'TOGGLE_TUTORIAL';
 
 export const resetPasteActionCreator = () => {
   return {
@@ -35,24 +34,17 @@ export const doneSearchingActionCreator = () => {
   };
 };
 
+export const toggleTutorialActionCreator = () => {
+  return {
+    type: TOGGLE_TUTORIAL,
+  };
+};
+
+
 export const receivePasteActionCreator = (paste) => {
   return {
     type: RECEIVE_PASTE,
     paste,
-  };
-};
-
-export const updateTitleActionCreator = (title) => {
-  return {
-    type: UPDATE_TITLE,
-    title,
-  };
-};
-
-export const updateDescriptionActionCreator = (description) => {
-  return {
-    type: UPDATE_DESCRIPTION,
-    description,
   };
 };
 
@@ -89,7 +81,6 @@ export const getPasteThunk = (short, version = '') => {
 
 const preparePayload = (state) => {
   const { app, files, terminal } = state;
-  const { title, description } = app;
 
   const newFiles = [];
   files.ids.forEach((id) => {
@@ -103,8 +94,6 @@ const preparePayload = (state) => {
   });
 
   return {
-    title,
-    description,
     files: newFiles,
     terminal: {
       _id: terminal.body,
