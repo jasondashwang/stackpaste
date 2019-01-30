@@ -160,7 +160,7 @@ class NavbarComponent extends React.Component {
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant="h5" color="inherit" noWrap>
             <Link to="/" onClick={reset} className={classes.titleLink}>
               <CodeIcon className={classes.logo} />
               &nbsp;
