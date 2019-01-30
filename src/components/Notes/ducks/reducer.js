@@ -1,8 +1,8 @@
 import {
-  UPDATE_TERMINAL_BODY,
-  RECEIVE_TERMINAL,
-  RECEIVE_ROOT_TERMINAL,
-  RESET_TERMINAL,
+  UPDATE_NOTES_BODY,
+  RECEIVE_NOTES,
+  RECEIVE_ROOT_NOTES,
+  RESET_NOTES,
 } from './actions';
 
 const initialState = {
@@ -18,27 +18,27 @@ function AppReducer(state = initialState, action) {
   };
 
   switch (action.type) {
-    case RESET_TERMINAL: {
+    case RESET_NOTES: {
       return {
         ...initialState,
       };
     }
 
-    case UPDATE_TERMINAL_BODY: {
+    case UPDATE_NOTES_BODY: {
       newState.body = action.body;
       return newState;
     }
 
-    case RECEIVE_TERMINAL: {
-      const { body, _id, root } = action.terminal;
+    case RECEIVE_NOTES: {
+      const { body, _id, root } = action.notes;
       newState.body = body;
       newState._id = _id;
       newState.root = root ? root : '';
       return newState;
     }
 
-    case RECEIVE_ROOT_TERMINAL: {
-      const { body } = action.terminal;
+    case RECEIVE_ROOT_NOTES: {
+      const { body } = action.notes;
       newState.rootBody = body;
       return newState;
     }

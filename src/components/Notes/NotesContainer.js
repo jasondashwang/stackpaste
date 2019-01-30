@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
-import TerminalComponent from './TerminalComponent';
+import NotesComponent from './NotesComponent';
 import { updateBodyActionCreator } from './ducks/actions';
 
 const mapStateToProps = (state) => {
   return {
-    body: state.terminal.body,
-    rootBody: state.terminal.rootBody,
-    root: state.terminal.root,
+    body: state.notes.body,
+    rootBody: state.notes.rootBody,
+    root: state.notes.root,
   };
 };
 
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const TerminalContainer = connect(mapStateToProps, mapDispatchToProps)(TerminalComponent);
+const NotesContainer = connect(mapStateToProps, mapDispatchToProps)(NotesComponent);
 
-export default TerminalContainer;
+export default NotesContainer;

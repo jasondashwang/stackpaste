@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const TerminalSchema = new Schema({
+const NotesSchema = new Schema({
   body: {
     type: String,
     default: '',
@@ -10,4 +10,4 @@ const TerminalSchema = new Schema({
   root: this,
 });
 
-module.exports = mongoose.model('Terminal', TerminalSchema);
+module.exports = mongoose.model('Notes', NotesSchema);

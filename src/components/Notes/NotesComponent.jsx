@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MonacoEditor from 'react-monaco-editor';
 
-import DiffTerminal from './DiffTerminalComponent';
+import DiffNotes from './DiffNotesComponent';
 
 const styles = theme => ({
   wrapper: {
@@ -15,7 +15,7 @@ const styles = theme => ({
   },
 });
 
-class TerminalComponent extends React.Component {
+class NotesComponent extends React.Component {
 
   render() {
     const { classes, body, updateBody, root, rootBody } = this.props;
@@ -41,7 +41,7 @@ class TerminalComponent extends React.Component {
               }}
             />
           ) : (
-            <DiffTerminal
+            <DiffNotes
               rootBody={rootBody}
               body={body}
               updateBody={updateBody}
@@ -54,7 +54,7 @@ class TerminalComponent extends React.Component {
   }
 }
 
-TerminalComponent.propTypes = {
+NotesComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   body: PropTypes.string.isRequired,
   updateBody: PropTypes.func.isRequired,
@@ -62,4 +62,4 @@ TerminalComponent.propTypes = {
   rootBody: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(TerminalComponent);
+export default withStyles(styles)(NotesComponent);

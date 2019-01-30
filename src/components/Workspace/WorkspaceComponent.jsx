@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Files from '../Files/FilesContainer';
-import Terminal from '../Terminal/TerminalContainer';
+import Notes from '../Notes/NotesContainer';
 import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
@@ -31,9 +31,9 @@ const WorkspaceComponent = (props) => {
       <div className={classes.toolbar} />
       <Files />
       <div className={classes.divider}>
-        <Typography variant="h6" noWrap className={classes.header}>Console</Typography>
+        <Typography variant="h6" noWrap className={classes.header}>Notepad</Typography>
       </div>
-      <Terminal />
+      <Notes />
     </main>
   );
 };
