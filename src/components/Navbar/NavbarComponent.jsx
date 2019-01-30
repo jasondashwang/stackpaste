@@ -6,17 +6,15 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CodeIcon from '@material-ui/icons/Code';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const styles = theme => ({
-  margin: {
-    margin: theme.spacing.unit * 2,
-    color: ''
-  },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     boxShadow: 'none',
@@ -41,12 +39,20 @@ const styles = theme => ({
     verticalAlign: 'middle',
     color: '#0084ff',
   },
+  grow: {
+    display: 'flex',
+    flexGrow: 1,
+  },
+  errorBarColorPrimary: {
+    backgroundColor: '#f50057',
+  },
 });
 
 
 class NavbarComponent extends React.Component {
   state = {
     inProgress: false,
+    error: false,
     completed: 0,
   }
 
@@ -59,7 +65,8 @@ class NavbarComponent extends React.Component {
       }, 500);
     } else {
       const diff = Math.random() * 10;
-      this.setState({ completed: Math.min(completed + diff, 100) });
+      // it has to be manually set to 100 for "completetion"
+      this.setState({ completed: Math.min(completed + diff, 99) });
     }
   }
 
@@ -92,6 +99,18 @@ class NavbarComponent extends React.Component {
           });
         })
         .catch((err) => {
+          this.setState({
+            completed: 0,
+            inProgress: false,
+            error: true,
+          });
+
+          setTimeout(() => {
+            this.setState({
+              error: false,
+            });
+          }, 5000);
+
           enqueueSnackbar('An error occurred while saving. Please try again later.', { variant: 'error' });
         });
     } else {
@@ -116,6 +135,18 @@ class NavbarComponent extends React.Component {
           });
         })
         .catch((err) => {
+          this.setState({
+            completed: 0,
+            inProgress: false,
+            error: true,
+          });
+
+          setTimeout(() => {
+            this.setState({
+              error: false,
+            });
+          }, 5000);
+
           enqueueSnackbar('An error occurred while updating. Please try again later.', { variant: 'error' });
         });
     } else {
@@ -124,12 +155,12 @@ class NavbarComponent extends React.Component {
   }
 
   render() {
-    const { classes, short, reset } = this.props;
-    const { inProgress, completed } = this.state;
+    const { classes, short, reset, toggleTutorial } = this.props;
+    const { inProgress, completed, error } = this.state;
     return (
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant="h5" color="inherit" noWrap>
             <Link to="/" onClick={reset} className={classes.titleLink}>
               <CodeIcon className={classes.logo} />
               &nbsp;
@@ -163,9 +194,31 @@ class NavbarComponent extends React.Component {
                 </Button>
               )
           }
-
+          <div className={classes.grow} />
+          <IconButton
+            className={classes.button}
+            color="inherit"
+            classes={{
+              root: classes.buttonRoot,
+            }}
+            onClick={toggleTutorial}
+          >
+            <HelpOutlineIcon />
+          </IconButton>
+          <IconButton
+            className={classes.button}
+            color="inherit"
+            classes={{
+              root: classes.buttonRoot,
+            }}
+          >
+            <AccountCircleIcon />
+          </IconButton>
         </Toolbar>
         { inProgress ? <LinearProgress variant="determinate" value={completed} color="secondary" /> : null }
+        { error ? <LinearProgress variant="determinate" value={100} classes={{
+          barColorPrimary: classes.errorBarColorPrimary,
+        }} /> : null }
       </AppBar>
     );
   }
@@ -179,6 +232,7 @@ NavbarComponent.propTypes = {
   short: PropTypes.string.isRequired,
   reset: PropTypes.func.isRequired,
   enqueueSnackbar: PropTypes.func.isRequired,
+  toggleTutorial: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(withSnackbar(NavbarComponent));

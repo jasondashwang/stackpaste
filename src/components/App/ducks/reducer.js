@@ -1,22 +1,20 @@
 import {
   RECEIVE_PASTE,
-  UPDATE_TITLE,
-  UPDATE_DESCRIPTION,
   DONE_SEARCHING,
   NOT_FOUND,
   RESET_PASTE,
   SERVER_ERROR,
+  TOGGLE_TUTORIAL,
 } from './actions';
 
 const initialState = {
   _id: '',
   version: 0,
-  title: '',
   short: '',
-  description: '',
   searching: true,
   notFound: false,
   serverError: false,
+  tutorial: false,
 };
 
 function AppReducer(state = initialState, action) {
@@ -27,6 +25,13 @@ function AppReducer(state = initialState, action) {
         ...initialState,
         searching: false,
         notifications: [],
+      };
+    }
+
+    case TOGGLE_TUTORIAL: {
+      return {
+        ...state,
+        tutorial: !state.tutorial,
       };
     }
 
@@ -52,31 +57,13 @@ function AppReducer(state = initialState, action) {
     }
 
     case RECEIVE_PASTE: {
-      const { short, title, description, _id, version } = action.paste;
+      const { short, _id, version } = action.paste;
 
       return {
         ...state,
         short,
-        title,
-        description,
         _id,
         version,
-      };
-    }
-
-    case UPDATE_TITLE: {
-      const { title } = action;
-      return {
-        ...state,
-        title,
-      };
-    }
-
-    case UPDATE_DESCRIPTION: {
-      const { description } = action;
-      return {
-        ...state,
-        description,
       };
     }
 

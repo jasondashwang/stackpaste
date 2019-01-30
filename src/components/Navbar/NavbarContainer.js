@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NavbarComponent from './NavbarComponent';
-import { createPasteThunk, createVersionThunk, resetPasteActionCreator } from '../App/ducks/actions';
+import { createPasteThunk, createVersionThunk, resetPasteActionCreator, toggleTutorialActionCreator } from '../App/ducks/actions';
 import { resetFilesActionCreator } from '../Files/ducks/actions';
 import { resetNotesActionCreator } from '../Notes/ducks/actions';
 
@@ -13,6 +13,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    toggleTutorial: () => {
+      dispatch(toggleTutorialActionCreator());
+    },
     createPaste: () => {
       return dispatch(createPasteThunk());
     },

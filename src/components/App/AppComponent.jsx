@@ -6,6 +6,7 @@ import Navbar from '../Navbar/NavbarContainer';
 import Workspace from '../Workspace/WorkspaceContainer';
 import Sidebar from '../Sidebar/SidebarContainer';
 import ErrorPage from '../ErrorPage/ErrorPageComponent';
+import Tutorial from '../Tutorial/TutorialContainer';
 
 const styles = theme => ({
   root: {
@@ -58,6 +59,7 @@ class AppComponent extends React.Component {
             </div>
           )
         }
+        <Tutorial />
       </div>
     );
   }
