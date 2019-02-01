@@ -13,6 +13,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CodeIcon from '@material-ui/icons/Code';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import BugReportIcon from '@material-ui/icons/BugReport';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   appBar: {
@@ -195,30 +197,50 @@ class NavbarComponent extends React.Component {
               )
           }
           <div className={classes.grow} />
-          <IconButton
-            className={classes.button}
-            color="inherit"
-            classes={{
-              root: classes.buttonRoot,
-            }}
-            onClick={toggleTutorial}
-          >
-            <HelpOutlineIcon />
-          </IconButton>
-          <IconButton
-            className={classes.button}
-            color="inherit"
-            classes={{
-              root: classes.buttonRoot,
-            }}
-          >
-            <AccountCircleIcon />
-          </IconButton>
+
+          <Tooltip title="Report a bug" placement="bottom">
+            <IconButton
+              className={classes.button}
+              color="inherit"
+              component="a"
+              href="https://github.com/hopelessmuffins/stackpaste/issues"
+              target="_blank"
+              classes={{
+                root: classes.buttonRoot,
+              }}
+            >
+              <BugReportIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Help" placement="bottom">
+            <IconButton
+              className={classes.button}
+              color="inherit"
+              classes={{
+                root: classes.buttonRoot,
+              }}
+              onClick={toggleTutorial}
+            >
+              <HelpOutlineIcon />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Profile" placement="bottom">
+            <IconButton
+              className={classes.button}
+              color="inherit"
+              classes={{
+                root: classes.buttonRoot,
+              }}
+            >
+              <AccountCircleIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
+
         { inProgress ? <LinearProgress variant="determinate" value={completed} color="secondary" /> : null }
-        { error ? <LinearProgress variant="determinate" value={100} classes={{
-          barColorPrimary: classes.errorBarColorPrimary,
-        }} /> : null }
+        { error ? <LinearProgress variant="determinate" value={100} classes={{ barColorPrimary: classes.errorBarColorPrimary }} /> : null }
       </AppBar>
     );
   }

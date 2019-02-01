@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -10,10 +9,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import BugReportIcon from '@material-ui/icons/BugReport';
-import DetailsIcon from '@material-ui/icons/Details';
-
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import CreateFolderIcon from '@material-ui/icons/CreateNewFolder';
+import DescriptionIcon from '@material-ui/icons/Description';
+import FolderIcon from '@material-ui/icons/Folder';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 
 const drawerWidth = 240;
 
@@ -27,7 +30,9 @@ const styles = theme => ({
     width: drawerWidth,
     borderRight: '1px solid #2d333b',
   },
-
+  divider: {
+    borderBottom: '1px solid #2d333b',
+  },
   toolbar: theme.mixins.toolbar,
   textField: {
     marginLeft: theme.spacing.unit,
@@ -39,14 +44,8 @@ const styles = theme => ({
     paddingBottom: '5px',
     fontSize: '12px',
   },
-  link: {
-    color: '#0084ff',
-  },
   license: {
     fontSize: '13px',
-  },
-  expand: {
-    backgroundColor: '#1c2128',
   },
   list: {
     paddingTop: '0px',
@@ -91,44 +90,35 @@ class SidebarComponent extends React.Component {
       >
         <div className={classes.toolbar} />
         <List className={classes.list}>
-          <ListItem button className={classes.expand} onClick={this.handleOtherClick}>
+          <ListItem button classes={{ divider: classes.divider }} divider>
             <ListItemIcon>
-              <DetailsIcon />
+              <CreateFolderIcon />
             </ListItemIcon>
-            <ListItemText inset primary="Other" />
+            <ListItemText
+              primary="Create new folder"
+            />
+          </ListItem>
+          <ListItem button onClick={this.handleOtherClick}>
+            <ListItemIcon>
+              { other ? <FolderOpenIcon /> : <FolderIcon /> }
+            </ListItemIcon>
+            <ListItemText inset primary="Some Folder" />
             {other ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={other} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem>
-                <ListItemText
-                  classes={{
-                    primary: classes.license,
-                  }}
-                  primary="All code belongs to the poster and no license is enforced. stackpaste or its team are not responsible or liable for any loss or damage of any kind during the usage of provided code."
-                />
-              </ListItem>
-              <ListSubheader
-                component="div"
-                classes={{
-                  root: classes.linkheader,
-                }}
-              >
-              Links
-              </ListSubheader>
-              <ListItem button component="a" href="https://github.com/jasonwang67/stackpaste/issues" target="_blank" className={classes.nested}>
-                <ListItemIcon>
-                  <BugReportIcon className={classes.link} />
-                </ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.link,
-                  }}
-                  inset
-                  primary="Report a bug"
-                />
-              </ListItem>
-            </List>
+            <ListItem button>
+              <ListItemIcon>
+                <DescriptionIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Filename"
+              />
+              <ListItemSecondaryAction>
+                <IconButton aria-label="Delete" color="secondary">
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
           </Collapse>
         </List>
       </Drawer>

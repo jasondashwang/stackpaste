@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import PropTypes from 'prop-types';
+import { Typography } from '@material-ui/core';
 
 function Transition(props) {
   return <Slide direction="down" {...props} />;
@@ -24,24 +25,32 @@ class TutorialComponent extends React.Component {
           keepMounted
           onClose={toggle}
         >
-          <DialogTitle>
-            Getting Started
-          </DialogTitle>
           <DialogContent>
+            <Typography variant="h6">
+              Getting Started
+            </Typography>
             <DialogContentText>
               Copy and paste your snippets of code into the file editor on the right and your console output, if appropriate, into the console below. Press Save above to generate a unique shortlink, which you can share or keep for reference.
             </DialogContentText>
-          </DialogContent>
 
-          <DialogTitle>
-            Usage
-          </DialogTitle>
-          <DialogContent>
+            <br />
+
+            <Typography variant="h6">
+              Usage
+            </Typography>
             <DialogContentText>
               Whenever you or a collaborator makes any edits, press Update above to generate a new versioned shortlink that displays the difference in a pull request format.
             </DialogContentText>
-          </DialogContent>
 
+            <br />
+
+            <Typography variant="h6">
+              License
+            </Typography>
+            <DialogContentText>
+              All code belongs to the poster and no license is enforced. stackpaste or its team are not responsible or liable for any loss or damage of any kind during the usage of provided code.
+            </DialogContentText>
+          </DialogContent>
           <DialogActions>
             <Button onClick={toggle} color="primary">
               Close
