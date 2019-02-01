@@ -14,8 +14,6 @@ const FileSchema = Joi.object().keys({
 });
 
 const PasteSchema = Joi.object().keys({
-  title: Joi.string().required().allow(''),
-  description: Joi.string().required().allow(''),
   files: Joi.array().items(FileSchema.required()),
   notes: NotesSchema.required(),
 });

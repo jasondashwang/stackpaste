@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../../../history';
 import { receiveFilesActionCreator, receiveRootFilesActionCreator } from '../../Files/ducks/actions';
-import { receiveNotesActionCreator, receiveRootNotesActionCreator } from '../../Notes/ducks/actions';
+import { receiveNotesActionCreator } from '../../Notes/ducks/actions';
 
 export const RECEIVE_PASTE = 'RECEIVE_PASTE';
 export const DONE_SEARCHING = 'DONE_SEARCHING';
@@ -59,7 +59,6 @@ export const getPasteThunk = (short, version = '') => {
           dispatch(receiveNotesActionCreator(paste.notes));
           if (paste.version > 0) {
             dispatch(receiveRootFilesActionCreator(root.files));
-            if (root.notes) dispatch(receiveRootNotesActionCreator(root.notes));
           }
           dispatch(doneSearchingActionCreator());
         })
@@ -128,7 +127,6 @@ export const createVersionThunk = () => {
         dispatch(receiveFilesActionCreator(createdPaste.files));
         dispatch(receiveNotesActionCreator(createdPaste.notes));
         dispatch(receiveRootFilesActionCreator(root.files));
-        if (root.notes) dispatch(receiveRootNotesActionCreator(root.notes));
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
       });
   };

@@ -50,10 +50,6 @@ router.get('/:short/:version', (req, res, next) => {
     })
     .populate({
       path: 'notes',
-      populate: {
-        path: 'root',
-        model: 'Notes',
-      },
     })
     .then((paste) => {
       if (!paste) {
@@ -61,10 +57,6 @@ router.get('/:short/:version', (req, res, next) => {
         err.status = 404;
         throw err;
       }
-
-      const notes = paste.notes.root;
-      // Reassign the root of the notes from being the object to just its _id
-      paste.notes.root = !paste.notes.root ? null : paste.notes.root._id;
 
       const files = paste.files.map(file => file.root);
       // Reassign the root of each files from being the object to just its _id
@@ -77,7 +69,6 @@ router.get('/:short/:version', (req, res, next) => {
         paste,
         root: {
           files,
-          notes,
         },
       });
     })
@@ -179,7 +170,6 @@ router.post('/:short', validatePayload, (req, res, next) => {
 
       newNotes = new Notes({
         body: notes.body,
-        root: notes._id && notes._id.length === 24 ? mongoose.Types.ObjectId(notes._id) : null,
       });
 
       newPaste.notes = newNotes._id;
@@ -193,18 +183,16 @@ router.post('/:short', validatePayload, (req, res, next) => {
     .then((files) => {
       createdPaste.files = files;
       const rootFilesPromises = Promise.all(files.map(file => File.findById(file.root))); // get all the root Files
-      return Promise.all([newNotes.save(), rootFilesPromises, Notes.findById(newNotes.root)]);
+      return Promise.all([newNotes.save(), rootFilesPromises]);
     })
     .then((results) => {
       const notes = results[0];
       const rootFiles = results[1];
-      const rootNotes = results[2];
       createdPaste.notes = notes;
       res.status(201).json({
         createdPaste,
         root: {
           files: rootFiles,
-          notes: rootNotes,
         },
       });
     })

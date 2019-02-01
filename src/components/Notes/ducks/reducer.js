@@ -1,15 +1,12 @@
 import {
   UPDATE_NOTES_BODY,
   RECEIVE_NOTES,
-  RECEIVE_ROOT_NOTES,
   RESET_NOTES,
 } from './actions';
 
 const initialState = {
   _id: '',
   body: '',
-  root: '',
-  rootBody: '',
 };
 
 function AppReducer(state = initialState, action) {
@@ -30,16 +27,9 @@ function AppReducer(state = initialState, action) {
     }
 
     case RECEIVE_NOTES: {
-      const { body, _id, root } = action.notes;
+      const { body, _id } = action.notes;
       newState.body = body;
       newState._id = _id;
-      newState.root = root ? root : '';
-      return newState;
-    }
-
-    case RECEIVE_ROOT_NOTES: {
-      const { body } = action.notes;
-      newState.rootBody = body;
       return newState;
     }
 
