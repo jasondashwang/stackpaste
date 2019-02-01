@@ -198,45 +198,48 @@ class NavbarComponent extends React.Component {
           }
           <div className={classes.grow} />
 
-          <Tooltip title="Report a bug" placement="bottom">
-            <IconButton
-              className={classes.button}
-              color="inherit"
-              component="a"
-              href="https://github.com/hopelessmuffins/stackpaste/issues"
-              target="_blank"
-              classes={{
-                root: classes.buttonRoot,
-              }}
-            >
+
+          <IconButton
+            className={classes.button}
+            color="inherit"
+            component="a"
+            href="https://github.com/hopelessmuffins/stackpaste/issues"
+            target="_blank"
+            classes={{
+              root: classes.buttonRoot,
+            }}
+          >
+            <Tooltip title="Report a bug" placement="bottom">
               <BugReportIcon />
-            </IconButton>
-          </Tooltip>
+            </Tooltip>
+          </IconButton>
 
-          <Tooltip title="Help" placement="bottom">
-            <IconButton
-              className={classes.button}
-              color="inherit"
-              classes={{
-                root: classes.buttonRoot,
-              }}
-              onClick={toggleTutorial}
-            >
+
+          <IconButton
+            className={classes.button}
+            color="inherit"
+            classes={{
+              root: classes.buttonRoot,
+            }}
+            onClick={toggleTutorial}
+          >
+            <Tooltip title="Help" placement="bottom">
               <HelpOutlineIcon />
-            </IconButton>
-          </Tooltip>
+            </Tooltip>
+          </IconButton>
 
-          <Tooltip title="Profile" placement="bottom">
-            <IconButton
-              className={classes.button}
-              color="inherit"
-              classes={{
-                root: classes.buttonRoot,
-              }}
-            >
+
+          <IconButton
+            className={classes.button}
+            color="inherit"
+            classes={{
+              root: classes.buttonRoot,
+            }}
+          >
+            <Tooltip title="Profile" placement="bottom">
               <AccountCircleIcon />
-            </IconButton>
-          </Tooltip>
+            </Tooltip>
+          </IconButton>
         </Toolbar>
 
         { inProgress ? <LinearProgress variant="determinate" value={completed} color="secondary" /> : null }

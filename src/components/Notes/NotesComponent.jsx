@@ -28,6 +28,10 @@ class NotesComponent extends React.Component {
             wordWrap: 'on',
             // Set this to false to not auto word wrap minified files
             wordWrapMinified: true,
+            lineNumbers: false,
+            suggest: false,
+            suggestOnTriggerCharacters: false,
+            wordBasedSuggestions: false,
           }}
           language="text"
           classes={{

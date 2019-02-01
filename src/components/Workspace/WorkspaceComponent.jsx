@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import { withStyles } from '@material-ui/core/styles';
 import Files from '../Files/FilesContainer';
 import Notes from '../Notes/NotesContainer';
-import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   main: {
@@ -22,6 +23,9 @@ const styles = theme => ({
     textAlign: 'center',
     color: '#cfd0d2',
   },
+  notepad: {
+    verticalAlign: 'middle',
+  },
 });
 
 const WorkspaceComponent = (props) => {
@@ -31,7 +35,10 @@ const WorkspaceComponent = (props) => {
       <div className={classes.toolbar} />
       <Files />
       <div className={classes.divider}>
-        <Typography variant="h6" noWrap className={classes.header}>Notepad</Typography>
+        <Typography variant="h6" noWrap className={classes.header}>
+          <AssignmentIcon className={classes.notepad} />
+          &nbsp; Notepad
+        </Typography>
       </div>
       <Notes />
     </main>

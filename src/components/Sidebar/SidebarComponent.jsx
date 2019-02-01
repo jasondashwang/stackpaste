@@ -8,15 +8,13 @@ import Collapse from '@material-ui/core/Collapse';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLess from '@material-ui/icons/ExpandLess';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import CreateFolderIcon from '@material-ui/icons/CreateNewFolder';
 import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const drawerWidth = 240;
 
@@ -40,9 +38,6 @@ const styles = theme => ({
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    fontSize: '12px',
   },
   license: {
     fontSize: '13px',
@@ -64,21 +59,27 @@ const styles = theme => ({
   paragraph: {
     paddingTop: '0px',
   },
+  button: {
+    color: '#cfd0d2',
+    '&&&&:hover': {
+      color: '#0084ff',
+    },
+  },
 });
 
 
 class SidebarComponent extends React.Component {
   state = {
-    other: false,
+    open: true,
   }
 
-  handleOtherClick = () => {
-    this.setState(state => ({ other: !state.other }));
+  handleClick = () => {
+    this.setState(state => ({ open: !state.open }));
   };
 
   render() {
     const { classes } = this.props;
-    const { other } = this.state;
+    const { open } = this.state;
 
     return (
       <Drawer
@@ -90,34 +91,29 @@ class SidebarComponent extends React.Component {
       >
         <div className={classes.toolbar} />
         <List className={classes.list}>
-          <ListItem button classes={{ divider: classes.divider }} divider>
+          <ListItem button onClick={this.handleClick} classes={{ divider: classes.divider }}>
             <ListItemIcon>
-              <CreateFolderIcon />
+              { open ? <FolderOpenIcon /> : <FolderIcon /> }
             </ListItemIcon>
             <ListItemText
-              primary="Create new folder"
+              primary="Files"
             />
+            <ListItemSecondaryAction>
+              <IconButton aria-label="Delete" className={classes.button}>
+                <Tooltip title="New File" placement="bottom">
+                  <NoteAddIcon />
+                </Tooltip>
+              </IconButton>
+            </ListItemSecondaryAction>
           </ListItem>
-          <ListItem button onClick={this.handleOtherClick}>
-            <ListItemIcon>
-              { other ? <FolderOpenIcon /> : <FolderIcon /> }
-            </ListItemIcon>
-            <ListItemText inset primary="Some Folder" />
-            {other ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={other} timeout="auto" unmountOnExit>
-            <ListItem button>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <ListItem button className={classes.nested}>
               <ListItemIcon>
                 <DescriptionIcon />
               </ListItemIcon>
               <ListItemText
                 primary="Filename"
               />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Delete" color="secondary">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
             </ListItem>
           </Collapse>
         </List>
