@@ -24,9 +24,9 @@ const PasteSchema = new Schema({
   version: {
     type: Number,
   },
-  terminal: {
+  notes: {
     type: Schema.Types.ObjectId,
-    ref: 'Terminal',
+    ref: 'Notes',
   },
 });
 

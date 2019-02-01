@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const TerminalSchema = Joi.object().keys({
+const NotesSchema = Joi.object().keys({
   _id: Joi.string().allow(''),
   body: Joi.string().required().allow(''),
 });
@@ -17,7 +17,7 @@ const PasteSchema = Joi.object().keys({
   title: Joi.string().required().allow(''),
   description: Joi.string().required().allow(''),
   files: Joi.array().items(FileSchema.required()),
-  terminal: TerminalSchema.required(),
+  notes: NotesSchema.required(),
 });
 
 const validatePayload = (req, res, next) => {

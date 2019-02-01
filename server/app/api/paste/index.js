@@ -2,7 +2,7 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 const Paste = require('../../../db/models/paste');
 const File = require('../../../db/models/file');
-const Terminal = require('../../../db/models/terminal');
+const Notes = require('../../../db/models/notes');
 const Short = require('../../../db/models/short');
 const validatePayload = require('./validate');
 
@@ -16,7 +16,7 @@ router.get('/:short', (req, res, next) => {
     version: 0,
   })
     .populate('files')
-    .populate('terminal')
+    .populate('notes')
     .then((paste) => {
       if (paste) {
         res.json({
@@ -49,10 +49,10 @@ router.get('/:short/:version', (req, res, next) => {
       },
     })
     .populate({
-      path: 'terminal',
+      path: 'notes',
       populate: {
         path: 'root',
-        model: 'Terminal',
+        model: 'Notes',
       },
     })
     .then((paste) => {
@@ -62,9 +62,9 @@ router.get('/:short/:version', (req, res, next) => {
         throw err;
       }
 
-      const terminal = paste.terminal.root;
-      // Reassign the root of the terminal from being the object to just its _id
-      paste.terminal.root = !paste.terminal.root ? null : paste.terminal.root._id;
+      const notes = paste.notes.root;
+      // Reassign the root of the notes from being the object to just its _id
+      paste.notes.root = !paste.notes.root ? null : paste.notes.root._id;
 
       const files = paste.files.map(file => file.root);
       // Reassign the root of each files from being the object to just its _id
@@ -77,7 +77,7 @@ router.get('/:short/:version', (req, res, next) => {
         paste,
         root: {
           files,
-          terminal,
+          notes,
         },
       });
     })
@@ -89,7 +89,7 @@ router.get('/:short/:version', (req, res, next) => {
 /*
   Request has
   {
-    terminal
+    notes
     files: array of File,
     title,
     description
@@ -98,7 +98,7 @@ router.get('/:short/:version', (req, res, next) => {
 router.post('/', validatePayload, (req, res, next) => {
   let createdPaste;
   let newFiles;
-  let newTerminal;
+  let newNotes;
   let newPaste;
   Short.create({})
     .then(({ short }) => {
@@ -109,8 +109,8 @@ router.post('/', validatePayload, (req, res, next) => {
         syntax: file.syntax,
       }));
 
-      newTerminal = new Terminal({
-        body: req.body.terminal.body,
+      newNotes = new Notes({
+        body: req.body.notes.body,
       });
 
       newPaste = new Paste({
@@ -122,7 +122,7 @@ router.post('/', validatePayload, (req, res, next) => {
 
       // Map paste's files to each file.id
       newPaste.files = newFiles.map(file => file._id);
-      newPaste.terminal = newTerminal._id;
+      newPaste.notes = newNotes._id;
 
       return newPaste.save();
     })
@@ -132,10 +132,10 @@ router.post('/', validatePayload, (req, res, next) => {
     })
     .then((dbFiles) => {
       createdPaste.files = dbFiles;
-      return newTerminal.save();
+      return newNotes.save();
     })
-    .then((dbTerminal) => {
-      createdPaste.terminal = dbTerminal;
+    .then((dbNotes) => {
+      createdPaste.notes = dbNotes;
       res.status(201).json(createdPaste);
     })
     .catch((err) => {
@@ -146,7 +146,7 @@ router.post('/', validatePayload, (req, res, next) => {
 router.post('/:short', validatePayload, (req, res, next) => {
   let newFiles;
   let createdPaste;
-  let newTerminal;
+  let newNotes;
 
   Short.findOne({
     short: req.params.short,
@@ -159,7 +159,7 @@ router.post('/:short', validatePayload, (req, res, next) => {
       }
       short.numOfChildren += 1;
 
-      const { terminal, files, title, description } = req.body;
+      const { notes, files, title, description } = req.body;
 
       const newPaste = new Paste({
         title,
@@ -177,12 +177,12 @@ router.post('/:short', validatePayload, (req, res, next) => {
 
       newPaste.files = newFiles.map(file => file._id);
 
-      newTerminal = new Terminal({
-        body: terminal.body,
-        root: terminal._id && terminal._id.length === 24 ? mongoose.Types.ObjectId(terminal._id) : null,
+      newNotes = new Notes({
+        body: notes.body,
+        root: notes._id && notes._id.length === 24 ? mongoose.Types.ObjectId(notes._id) : null,
       });
 
-      newPaste.terminal = newTerminal._id;
+      newPaste.notes = newNotes._id;
 
       return Promise.all([newPaste.save(), short.save()]);
     })
@@ -193,18 +193,18 @@ router.post('/:short', validatePayload, (req, res, next) => {
     .then((files) => {
       createdPaste.files = files;
       const rootFilesPromises = Promise.all(files.map(file => File.findById(file.root))); // get all the root Files
-      return Promise.all([newTerminal.save(), rootFilesPromises, Terminal.findById(newTerminal.root)]);
+      return Promise.all([newNotes.save(), rootFilesPromises, Notes.findById(newNotes.root)]);
     })
     .then((results) => {
-      const terminal = results[0];
+      const notes = results[0];
       const rootFiles = results[1];
-      const rootTerminal = results[2];
-      createdPaste.terminal = terminal;
+      const rootNotes = results[2];
+      createdPaste.notes = notes;
       res.status(201).json({
         createdPaste,
         root: {
           files: rootFiles,
-          terminal: rootTerminal,
+          notes: rootNotes,
         },
       });
     })

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import history from '../../../history';
 import { receiveFilesActionCreator, receiveRootFilesActionCreator } from '../../Files/ducks/actions';
-import { receiveTerminalActionCreator, receiveRootTerminalActionCreator } from '../../Terminal/ducks/actions';
+import { receiveNotesActionCreator, receiveRootNotesActionCreator } from '../../Notes/ducks/actions';
 
 export const RECEIVE_PASTE = 'RECEIVE_PASTE';
 export const DONE_SEARCHING = 'DONE_SEARCHING';
@@ -56,10 +56,10 @@ export const getPasteThunk = (short, version = '') => {
         .then(({ root, paste }) => {
           dispatch(receivePasteActionCreator(paste));
           dispatch(receiveFilesActionCreator(paste.files));
-          dispatch(receiveTerminalActionCreator(paste.terminal));
+          dispatch(receiveNotesActionCreator(paste.notes));
           if (paste.version > 0) {
             dispatch(receiveRootFilesActionCreator(root.files));
-            if (root.terminal) dispatch(receiveRootTerminalActionCreator(root.terminal));
+            if (root.notes) dispatch(receiveRootNotesActionCreator(root.notes));
           }
           dispatch(doneSearchingActionCreator());
         })
@@ -80,7 +80,7 @@ export const getPasteThunk = (short, version = '') => {
 };
 
 const preparePayload = (state) => {
-  const { app, files, terminal } = state;
+  const { app, files, notes } = state;
 
   const newFiles = [];
   files.ids.forEach((id) => {
@@ -95,9 +95,9 @@ const preparePayload = (state) => {
 
   return {
     files: newFiles,
-    terminal: {
-      _id: terminal.body,
-      body: terminal.body,
+    notes: {
+      _id: notes.body,
+      body: notes.body,
     },
   };
 };
@@ -109,7 +109,7 @@ export const createPasteThunk = () => {
       .then((createdPaste) => {
         dispatch(receivePasteActionCreator(createdPaste));
         dispatch(receiveFilesActionCreator(createdPaste.files));
-        dispatch(receiveTerminalActionCreator(createdPaste.terminal));
+        dispatch(receiveNotesActionCreator(createdPaste.notes));
         history.push(`/${createdPaste.short}`);
       });
   };
@@ -126,9 +126,9 @@ export const createVersionThunk = () => {
       .then(({ createdPaste, root }) => {
         dispatch(receivePasteActionCreator(createdPaste));
         dispatch(receiveFilesActionCreator(createdPaste.files));
-        dispatch(receiveTerminalActionCreator(createdPaste.terminal));
+        dispatch(receiveNotesActionCreator(createdPaste.notes));
         dispatch(receiveRootFilesActionCreator(root.files));
-        if (root.terminal) dispatch(receiveRootTerminalActionCreator(root.terminal));
+        if (root.notes) dispatch(receiveRootNotesActionCreator(root.notes));
         history.push(`/${createdPaste.short}/${createdPaste.version}`);
       });
   };

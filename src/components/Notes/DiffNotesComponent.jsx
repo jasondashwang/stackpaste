@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MonacoDiffEditor } from 'react-monaco-editor';
 
-function DiffTerminalComponent(props) {
+function DiffNotesComponent(props) {
   const { body, rootBody, updateBody } = props;
 
   return (
@@ -21,10 +21,10 @@ function DiffTerminalComponent(props) {
   );
 }
 
-DiffTerminalComponent.propTypes = {
+DiffNotesComponent.propTypes = {
   body: PropTypes.string.isRequired,
   rootBody: PropTypes.string.isRequired,
   updateBody: PropTypes.func.isRequired,
 };
 
-export default DiffTerminalComponent;
+export default DiffNotesComponent;

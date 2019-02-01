@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import NavbarComponent from './NavbarComponent';
 import { createPasteThunk, createVersionThunk, resetPasteActionCreator, toggleTutorialActionCreator } from '../App/ducks/actions';
 import { resetFilesActionCreator } from '../Files/ducks/actions';
-import { resetTerminalActionCreator } from '../Terminal/ducks/actions';
+import { resetNotesActionCreator } from '../Notes/ducks/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     reset: () => {
       dispatch(resetPasteActionCreator());
       dispatch(resetFilesActionCreator());
-      dispatch(resetTerminalActionCreator());
+      dispatch(resetNotesActionCreator());
     },
   };
 };
