@@ -14,54 +14,17 @@ const styles = theme => ({
     width: '100%',
     height: 'calc(63% - 33px)',
   },
-  scroller: {
-    'overflow-x': 'hidden',
-  },
-  bar: {
-    boxShadow: 'none',
-    height: '48px',
-  },
   add: {
     color: '#0084ff',
   },
 });
 
 class FilesComponent extends React.Component {
-  handleTabClick = (evt, index) => {
-    const { createFile, focusFile, files } = this.props;
-    if (index === files.ids.length) {
-      createFile();
-    } else {
-      focusFile(index);
-    }
-  }
-
   render() {
     const { classes, files, deleteFile } = this.props;
-    const fileTitles = files.ids.map(id => files[id].title);
     const file = files[files.ids[files.focusIndex]];
     return (
       <div className={classes.wrapper}>
-        <AppBar
-          position="static"
-          color="primary"
-          className={classes.bar}
-        >
-          <Tabs
-            onChange={this.handleTabClick}
-            value={files.focusIndex}
-            variant="scrollable"
-            scrollButtons="on"
-            classes={{
-              scroller: classes.scroller,
-            }}
-          >
-            {
-              fileTitles.map((title, i) => <Tab classes={classes.tab} key={i} label={title} />)
-            }
-            <Tab icon={<AddIcon className={classes.add} />} />
-          </Tabs>
-        </AppBar>
         <TitleBar file={file} />
         <CodeEditor file={file} />
       </div>

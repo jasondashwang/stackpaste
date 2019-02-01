@@ -16,7 +16,7 @@ const styles = theme => ({
   wrapper: {
     height: '48px',
     padding: '8px',
-    border: '1px solid #2d333b',
+    borderBottom: '1px solid #2d333b',
     backgroundColor: '#20262e',
   },
   textField: {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -65,6 +66,10 @@ const styles = theme => ({
       color: '#0084ff',
     },
   },
+  active: {
+    backgroundColor: '#1c2128',
+    borderLeft: '2px solid #0084ff',
+  },
 });
 
 
@@ -73,12 +78,14 @@ class SidebarComponent extends React.Component {
     open: true,
   }
 
-  handleClick = () => {
+  handleCreate = () => {
     this.setState(state => ({ open: !state.open }));
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, files, createFile, focusFile } = this.props;
+    const fileTitles = files.ids.map(id => ({ title: files[id].title, id }));
+    const { focusIndex } = files;
     const { open } = this.state;
 
     return (
@@ -91,7 +98,7 @@ class SidebarComponent extends React.Component {
       >
         <div className={classes.toolbar} />
         <List className={classes.list}>
-          <ListItem button onClick={this.handleClick} classes={{ divider: classes.divider }}>
+          <ListItem button onClick={this.handleCreate} classes={{ divider: classes.divider }}>
             <ListItemIcon>
               { open ? <FolderOpenIcon /> : <FolderIcon /> }
             </ListItemIcon>
@@ -99,7 +106,7 @@ class SidebarComponent extends React.Component {
               primary="Files"
             />
             <ListItemSecondaryAction>
-              <IconButton aria-label="Delete" className={classes.button}>
+              <IconButton aria-label="Delete" className={classes.button} onClick={createFile}>
                 <Tooltip title="New File" placement="bottom">
                   <NoteAddIcon />
                 </Tooltip>
@@ -107,14 +114,22 @@ class SidebarComponent extends React.Component {
             </ListItemSecondaryAction>
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <ListItem button className={classes.nested}>
-              <ListItemIcon>
-                <DescriptionIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary="Filename"
-              />
-            </ListItem>
+            {
+              fileTitles.map((titleObj, i) => {
+                const { id, title } = titleObj;
+                return (
+                  <ListItem key={id} button className={classNames(classes.nested, focusIndex === i ? classes.active : null)} onClick={() => { focusFile(i); }}>
+                    <ListItemIcon>
+                      <DescriptionIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={title}
+                    />
+                  </ListItem>
+                );
+              })
+            }
+
           </Collapse>
         </List>
       </Drawer>
@@ -124,6 +139,9 @@ class SidebarComponent extends React.Component {
 
 SidebarComponent.propTypes = {
   classes: PropTypes.object.isRequired,
+  files: PropTypes.object.isRequired,
+  focusFile: PropTypes.func.isRequired,
+  createFile: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(SidebarComponent);
