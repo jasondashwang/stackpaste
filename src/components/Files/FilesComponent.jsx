@@ -10,9 +10,10 @@ import TitleBar from './TitleBar/TitleBarContainer';
 
 const styles = theme => ({
   wrapper: {
-    flexGrow: 1,
-    width: '100%',
-    height: 'calc(63% - 33px)',
+    float: 'left',
+    width: 'calc(70% - 1px)',
+    height: 'calc(100% - 64px)',
+    borderRight: '1px solid #2d333b',
   },
   add: {
     color: '#0084ff',

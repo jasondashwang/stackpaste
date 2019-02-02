@@ -82,6 +82,7 @@ class TitleBarComponent extends React.Component {
     return (
       <div className={classes.wrapper}>
         <TextField
+          id="titleField"
           error={!file.title}
           required
           placeholder="Filename"

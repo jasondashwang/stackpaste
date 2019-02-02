@@ -30,7 +30,7 @@ class TutorialComponent extends React.Component {
               Getting Started
             </Typography>
             <DialogContentText>
-              Copy and paste your snippets of code into the file editor on the right and your console output, if appropriate, into the console below. Press Save above to generate a unique shortlink, which you can share or keep for reference.
+              Copy and paste your snippets of code into the main code editor, creating additional files as necessary. Press Save above to generate a unique shortlink, which you can share or keep for reference.
             </DialogContentText>
 
             <br />

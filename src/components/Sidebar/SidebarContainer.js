@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   createFile: () => {
     dispatch(createFileActionCreator());
+    document.getElementById('titleField').focus(); // focus the title input
   },
   focusFile: (index) => {
     dispatch(focusFileActionCreator(index));
