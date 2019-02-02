@@ -5,4 +5,5 @@ export default {
   'JavaScript': 'javascript',
   'HTML': 'html',
   'CSS': 'css',
+  'SQL': 'sql',
 };
