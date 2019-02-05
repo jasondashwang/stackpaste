@@ -10,6 +10,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Switch from '@material-ui/core/Switch';
+import Tooltip from '@material-ui/core/Tooltip';
 import syntaxes from './syntax';
 
 const styles = theme => ({
@@ -46,6 +48,9 @@ const styles = theme => ({
       color: '#0084ff',
     },
   },
+  switch: {
+    float: 'right',
+  },
 });
 
 class TitleBarComponent extends React.Component {
@@ -78,7 +83,7 @@ class TitleBarComponent extends React.Component {
   }
 
   render() {
-    const { classes, file } = this.props;
+    const { classes, file, diff, toggleDiff } = this.props;
     return (
       <div className={classes.wrapper}>
         <TextField
@@ -98,6 +103,7 @@ class TitleBarComponent extends React.Component {
         <IconButton aria-label="Delete" onClick={this.handleDelete} className={classes.button}>
           <DeleteIcon />
         </IconButton>
+
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel
             ref={(ref) => {
@@ -130,6 +136,16 @@ class TitleBarComponent extends React.Component {
             }
           </Select>
         </FormControl>
+        {
+          file.root ? (
+            <Tooltip title="Toggle Diff View" placement="bottom" className={classes.switch}>
+              <Switch onChange={toggleDiff} checked={diff} />
+            </Tooltip>
+          ) : (
+            null
+          )
+        }
+
       </div>
     );
   }
@@ -141,6 +157,8 @@ TitleBarComponent.propTypes = {
   updateTitle: PropTypes.func.isRequired,
   deleteFile: PropTypes.func.isRequired,
   updateSyntax: PropTypes.func.isRequired,
+  toggleDiff: PropTypes.func.isRequired,
+  diff: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(TitleBarComponent);

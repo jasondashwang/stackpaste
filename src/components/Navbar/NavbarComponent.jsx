@@ -229,7 +229,7 @@ class NavbarComponent extends React.Component {
           </IconButton>
 
 
-          <IconButton
+          {/* <IconButton
             className={classes.button}
             color="inherit"
             classes={{
@@ -239,7 +239,7 @@ class NavbarComponent extends React.Component {
             <Tooltip title="Profile" placement="bottom">
               <AccountCircleIcon />
             </Tooltip>
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
 
         { inProgress ? <LinearProgress variant="determinate" value={completed} color="secondary" /> : null }

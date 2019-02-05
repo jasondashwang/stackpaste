@@ -15,6 +15,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import NotifcationIcon from '@material-ui/icons/FiberManualRecord';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const drawerWidth = 240;
@@ -69,6 +70,7 @@ const styles = theme => ({
   active: {
     backgroundColor: '#1c2128',
     borderLeft: '2px solid #0084ff',
+    paddingLeft: '30px',
   },
 });
 
@@ -118,12 +120,12 @@ class SidebarComponent extends React.Component {
               fileTitles.map((titleObj, i) => {
                 const { id, title } = titleObj;
                 return (
-                  <ListItem key={id} button className={classNames(classes.nested, focusIndex === i ? classes.active : null)} onClick={() => { focusFile(i); }}>
+                  <ListItem dense key={id} button className={classNames(classes.nested, focusIndex === i ? classes.active : null)} onClick={() => { focusFile(i); }}>
                     <ListItemIcon>
                       <DescriptionIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary={title}
+                      primary={title.length > 16 ? `${title.slice(0, 16)}...` : title}
                     />
                   </ListItem>
                 );

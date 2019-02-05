@@ -27,7 +27,7 @@ class CodeEditorComponent extends React.Component {
   }
 
   render() {
-    const { classes, file, version, rootFiles } = this.props;
+    const { classes, file, version, rootFiles, diff } = this.props;
     let originalBody = '';
     if (file.root && file.root !== '' && rootFiles[file.root]) {
       originalBody = rootFiles[file.root].body;
@@ -36,23 +36,8 @@ class CodeEditorComponent extends React.Component {
     return (
       <div className={classes.wrapper}>
         {
-          !file.root // If the file's root does not exist
+          file.root && diff // If the file's root does not exist
             ? (
-              <MonacoEditor
-                options={{
-                  automaticLayout: true,
-                  wordWrap: 'on',
-                  // Set this to false to not auto word wrap minified files
-                  wordWrapMinified: true,
-                }}
-                language={file.syntax}
-                value={file.body}
-                editorDidMount={editorDidMount}
-                editorWillMount={editorWillMount}
-                onChange={this.handleChange}
-              />
-            )
-            : (
               <MonacoDiffEditor
                 language={file.syntax}
                 options={{
@@ -63,6 +48,21 @@ class CodeEditorComponent extends React.Component {
                 }}
                 original={originalBody}
                 value={file.body}
+                editorWillMount={editorWillMount}
+                onChange={this.handleChange}
+              />
+            )
+            : (
+              <MonacoEditor
+                options={{
+                  automaticLayout: true,
+                  wordWrap: 'on',
+                  // Set this to false to not auto word wrap minified files
+                  wordWrapMinified: true,
+                }}
+                language={file.syntax}
+                value={file.body}
+                editorDidMount={editorDidMount}
                 editorWillMount={editorWillMount}
                 onChange={this.handleChange}
               />
@@ -81,6 +81,7 @@ CodeEditorComponent.propTypes = {
   updateBody: PropTypes.func.isRequired,
   version: PropTypes.number.isRequired,
   rootFiles: PropTypes.object.isRequired,
+  diff: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(CodeEditorComponent);

@@ -21,13 +21,23 @@ const styles = theme => ({
 });
 
 class FilesComponent extends React.Component {
+  state = {
+    diff: true,
+  }
+
+  toggleDiff = () => {
+    this.setState({
+      diff: !this.state.diff,
+    });
+  }
+
   render() {
     const { classes, files, deleteFile } = this.props;
     const file = files[files.ids[files.focusIndex]];
     return (
       <div className={classes.wrapper}>
-        <TitleBar file={file} />
-        <CodeEditor file={file} />
+        <TitleBar diff={this.state.diff} toggleDiff={this.toggleDiff} file={file} />
+        <CodeEditor diff={this.state.diff} file={file} />
       </div>
     );
   }
