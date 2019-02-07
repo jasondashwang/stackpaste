@@ -72,6 +72,9 @@ const styles = theme => ({
     borderLeft: '2px solid #0084ff',
     paddingLeft: '30px',
   },
+  listIcon: {
+    marginRight: '0px',
+  },
 });
 
 
@@ -101,7 +104,7 @@ class SidebarComponent extends React.Component {
         <div className={classes.toolbar} />
         <List className={classes.list}>
           <ListItem button onClick={this.handleCreate} classes={{ divider: classes.divider }}>
-            <ListItemIcon>
+            <ListItemIcon classes={{ root: classes.listIcon }}>
               { open ? <FolderOpenIcon /> : <FolderIcon /> }
             </ListItemIcon>
             <ListItemText
@@ -120,8 +123,8 @@ class SidebarComponent extends React.Component {
               fileTitles.map((titleObj, i) => {
                 const { id, title } = titleObj;
                 return (
-                  <ListItem dense key={id} button className={classNames(classes.nested, focusIndex === i ? classes.active : null)} onClick={() => { focusFile(i); }}>
-                    <ListItemIcon>
+                  <ListItem key={id} button className={classNames(classes.nested, focusIndex === i ? classes.active : null)} onClick={() => { focusFile(i); }}>
+                    <ListItemIcon classes={{ root: classes.listIcon }}>
                       <DescriptionIcon />
                     </ListItemIcon>
                     <ListItemText
